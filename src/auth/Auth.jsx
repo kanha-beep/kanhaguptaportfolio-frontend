@@ -30,7 +30,7 @@ export default function Auth({ setIsLoggedIn, setUser, checkAuthStatus }) {
 
   return (
     <div className="container mt-5" style={{ maxWidth: "400px" }}>
-      <h2 className="text-center mb-3 btn btn-outline-primary">Login</h2>
+      {/* <h2 className="text-center mb-3 btn btn-outline-primary">Login</h2> */}
 
       <form onSubmit={handleSubmit}>
         <input

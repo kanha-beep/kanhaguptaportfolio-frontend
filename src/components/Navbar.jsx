@@ -13,7 +13,7 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
       setIsLoggedIn(false);
       navigate("/");
     } catch (e) {
-      console.log("error lougout: ", e?.response?.data);
+      console.log("error logout: ", e?.response?.data);
     }
   };
   return (
