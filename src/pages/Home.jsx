@@ -35,7 +35,10 @@ export default function Home() {
     );
   console.log(projects);
   return (
-    <main className="container py-4 text-center">
+    <main className="container py-4 text-center d-flex flex-column">
+      <div className="flex-grow-1">
+
+      
       <h1 className="mb-3">Welcome to My Portfolio</h1>
       <p>Showcasing my projects, skills, and achievements.</p>
 
@@ -68,6 +71,7 @@ export default function Home() {
           )}
         </div>
       </section>
+      </div>
     </main>
   );
 }
