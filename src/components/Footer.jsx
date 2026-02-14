@@ -8,7 +8,8 @@ export default function Footer() {
         textAlign: "center",
         position: "fixed",
         bottom: "0",
-        width:"100%"
+        width:"100%",
+        zIndex: 1000,
       }}
     >
       &copy; {new Date().getFullYear()} My Portfolio
