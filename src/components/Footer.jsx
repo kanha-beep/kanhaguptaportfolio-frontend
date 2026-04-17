@@ -1,51 +1,112 @@
 import { Link } from "react-router-dom";
+import { siteContent } from "../content/siteContent";
+
+const navLinks = [
+  { to: "/", label: "Home" },
+  { to: "/projects", label: "Projects" },
+  { to: "/about", label: "Experience" },
+  { to: "/about", label: "Education" },
+];
+
+const expertiseLinks = [
+  "Full Stack MERN Dev",
+  "React.js Specialist",
+  "Next.js Architecture",
+  "REST API Design",
+];
+
+const socialItems = [
+  { label: "GitHub", icon: "⌘" },
+  { label: "LinkedIn", icon: "in" },
+  { label: "Twitter", icon: "X" },
+];
 
 export default function Footer() {
   return (
-    <footer className="relative mt-16 border-t border-ink-950/10">
-      <div className="layout py-10">
-        <div className="panel grid gap-8 px-6 py-8 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="mt-28 pb-12">
+      <div className="layout">
+        <div className="grid gap-12 border-t border-white/8 pt-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
           <div>
-            <p className="font-display text-xl font-semibold text-ink-950">
-              Portfolio OS
-            </p>
-            <p className="mt-3 text-sm leading-7 text-ink-800/80">
-              A sharper front door for case studies, writing, and new client
-              conversations.
+            <h2 className="font-display text-[56px] font-extrabold leading-[0.92] text-white sm:text-[72px] lg:text-[86px]">
+              LET&apos;S BUILD
+              <span className="hero-gradient-text block">SOMETHING GREAT</span>
+            </h2>
+            <p className="mt-10 max-w-3xl text-[22px] leading-[1.6] text-slate-300/82 italic">
+              Currently available for freelance opportunities and full-time
+              roles in{" "}
+              <span className="font-semibold text-white">
+                Bhopal, Madhya Pradesh, and Remote.
+              </span>
             </p>
           </div>
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-ink-800">
-              Explore
-            </p>
-            <div className="mt-3 flex flex-col gap-2 text-sm text-ink-950">
-              <Link to="/">Home</Link>
-              <Link to="/projects">Projects</Link>
-              <Link to="/blogs">Blogs</Link>
-            </div>
-          </div>
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-ink-800">
-              Connect
-            </p>
-            <div className="mt-3 flex flex-col gap-2 text-sm text-ink-950">
-              <Link to="/contacts">Contact</Link>
-              <Link to="/about">About</Link>
-              <Link to="/cms">CMS</Link>
-            </div>
-          </div>
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-ink-800">
-              Built With
-            </p>
-            <p className="mt-3 text-sm leading-7 text-ink-800/80">
-              React, Vite, Tailwind CSS, and your existing blog/project CMS.
-            </p>
+
+          <div className="flex items-start justify-start gap-4 lg:justify-end">
+            <Link to="/contacts" className="footer-cta-button">
+              Start a Conversation ✉
+            </Link>
+            <a
+              href="#top"
+              className="flex h-[78px] w-[78px] items-center justify-center rounded-[22px] border border-white/10 bg-white/4 text-3xl text-white transition hover:bg-white/8"
+            >
+              ^
+            </a>
           </div>
         </div>
-        <p className="mt-5 text-center text-xs uppercase tracking-[0.26em] text-ink-800/70">
-          © {new Date().getFullYear()} Portfolio OS
-        </p>
+
+        <div className="mt-20 grid gap-12 lg:grid-cols-4">
+          <div>
+            <p className="hero-gradient-text font-display text-[40px] font-extrabold uppercase">
+              {siteContent.firstName}.{siteContent.lastName}
+            </p>
+            <div className="mt-8 flex gap-4">
+              {socialItems.map((item) => (
+                <a
+                  key={item.label}
+                  href="#"
+                  aria-label={item.label}
+                  className="footer-icon-button"
+                >
+                  {item.icon}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="footer-label">Navigation</p>
+            <div className="mt-8 flex flex-col gap-5">
+              {navLinks.map((link) => (
+                <Link key={link.label} to={link.to} className="footer-link">
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="footer-label">Expertise</p>
+            <div className="mt-8 flex flex-col gap-5">
+              {expertiseLinks.map((item) => (
+                <p key={item} className="footer-link">
+                  {item}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="footer-label">Connect</p>
+            <div className="mt-8 flex flex-col gap-6 text-[18px] text-slate-200/82">
+              <a href={`mailto:${siteContent.email}`} className="footer-link">
+                ✉ {siteContent.email}
+              </a>
+              <a href={`tel:${siteContent.phone}`} className="footer-link">
+                ☎ {siteContent.phone}
+              </a>
+              <p className="footer-link">📍 Ghaziabad / Noida, IN</p>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   );

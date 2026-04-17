@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import api from "../api";
+import { siteContent } from "../content/siteContent";
+import MotionReveal from "../components/MotionReveal.jsx";
 
 const contactSteps = [
   "Share the project goal",
@@ -52,61 +54,70 @@ export default function Contact() {
   };
 
   return (
-    <main className="layout py-10 sm:py-14">
+    <main className="layout section-space">
+      <MotionReveal>
       <section className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="space-y-5">
-          <div className="panel px-6 py-8 sm:px-8">
-            <span className="eyebrow">Contact studio</span>
-            <h1 className="mt-5 font-display text-5xl font-semibold tracking-tight text-ink-950 sm:text-6xl">
-              Let&apos;s turn interest into a clear brief.
+          <div className="glass-card px-6 py-8 sm:px-8">
+            <span className="eyebrow">Contact Studio</span>
+            <h1 className="mt-5 font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl">
+              Let&apos;s turn interest into a real conversation.
             </h1>
-            <p className="mt-5 text-base leading-8 text-ink-800/85 sm:text-lg">
-              The contact page is framed like an intake desk: direct, calm, and
-              designed to move visitors from curiosity to a real conversation.
+            <p className="mt-5 text-base leading-8 text-slate-200/82 sm:text-lg">
+              Same dark theme, same balanced proportions, same polished
+              structure. Only your contact details and project context change.
             </p>
           </div>
 
-          <div className="panel p-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-ink-800/60">
-              What happens next
+          <div className="glass-card p-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent-300">
+              What Happens Next
             </p>
             <div className="mt-4 grid gap-4">
               {contactSteps.map((step, index) => (
                 <div
                   key={step}
-                  className="flex items-center gap-4 rounded-3xl bg-white/80 px-4 py-4"
+                  className="flex items-center gap-4 rounded-lg border border-white/10 bg-white/6 px-4 py-4"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-ink-950 text-sm font-semibold text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-md bg-accent-500 text-sm font-semibold text-surface-950">
                     {index + 1}
                   </div>
-                  <p className="text-sm text-ink-950">{step}</p>
+                  <p className="text-sm text-white">{step}</p>
                 </div>
               ))}
             </div>
           </div>
 
+          <div className="glass-card p-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent-300">
+              Direct Details
+            </p>
+            <div className="mt-4 space-y-3 text-sm leading-7 text-slate-200/76">
+              <p>{siteContent.email}</p>
+              <p>{siteContent.phone}</p>
+              <p>{siteContent.location}</p>
+            </div>
+          </div>
+
           {projectDetails ? (
-            <div className="rounded-[28px] bg-mint-300/40 p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-ink-800/60">
-                Selected project
+            <div className="rounded-lg border border-accent-400/22 bg-accent-400/10 p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent-300">
+                Selected Project
               </p>
-              <p className="mt-3 font-display text-3xl text-ink-950">
+              <p className="mt-3 font-display text-3xl text-white">
                 {projectDetails.title}
               </p>
-              <p className="mt-3 text-sm leading-7 text-ink-800/80">
+              <p className="mt-3 text-sm leading-7 text-slate-200/76">
                 Your message will be linked to this project automatically.
               </p>
             </div>
           ) : null}
         </div>
 
-        <div className="panel px-6 py-8 sm:px-8">
+        <div className="glass-card px-6 py-8 sm:px-8">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label
-                htmlFor="name"
-                className="mb-2 block text-sm font-medium text-ink-950"
-              >
+              <label htmlFor="name" className="mb-2 block text-sm font-medium text-white">
                 Name
               </label>
               <input
@@ -122,10 +133,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label
-                htmlFor="email"
-                className="mb-2 block text-sm font-medium text-ink-950"
-              >
+              <label htmlFor="email" className="mb-2 block text-sm font-medium text-white">
                 Email
               </label>
               <input
@@ -144,7 +152,7 @@ export default function Contact() {
               <div>
                 <label
                   htmlFor="projectName"
-                  className="mb-2 block text-sm font-medium text-ink-950"
+                  className="mb-2 block text-sm font-medium text-white"
                 >
                   Project or inquiry title
                 </label>
@@ -161,10 +169,7 @@ export default function Contact() {
             ) : null}
 
             <div>
-              <label
-                htmlFor="message"
-                className="mb-2 block text-sm font-medium text-ink-950"
-              >
+              <label htmlFor="message" className="mb-2 block text-sm font-medium text-white">
                 Message
               </label>
               <textarea
@@ -184,13 +189,13 @@ export default function Contact() {
           </form>
 
           {contactData.length > 0 ? (
-            <section className="mt-8 rounded-[24px] border border-mint-400/40 bg-mint-300/25 p-5">
+            <section className="mt-8 rounded-lg border border-accent-400/30 bg-accent-400/10 p-5">
               {contactData.map((contact) => (
                 <div key={contact._id}>
-                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-ink-800/60">
-                    Message received
+                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent-300">
+                    Message Received
                   </p>
-                  <p className="mt-3 text-sm leading-7 text-ink-950">
+                  <p className="mt-3 text-sm leading-7 text-white">
                     Thanks {contact.name}, your inquiry has been submitted using{" "}
                     <span className="font-semibold">{contact.email}</span>.
                   </p>
@@ -207,6 +212,7 @@ export default function Contact() {
           ) : null}
         </div>
       </section>
+      </MotionReveal>
     </main>
   );
 }

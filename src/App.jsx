@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import AssistantBar from "./components/AssistantBar.jsx";
+import ChatbotWidget from "./components/ChatbotWidget.jsx";
 import Home from "./pages/Home.jsx";
 import Contact from "./pages/Contact.jsx";
 import About from "./pages/About.jsx";
@@ -20,6 +19,7 @@ import Logout from "./auth/Logout.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import SingleProjects from "./templates/SingleProjects.jsx";
 import EditProjects from "./templates/EditProjects.jsx";
+import api from "./api.js";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -29,15 +29,17 @@ function App() {
 
   const checkAuthStatus = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/auth/me`, {
-        withCredentials: true,
-      });
+      const res = await api.get("/auth/me");
       setUser(res?.data);
       if (res) {
         setIsLoggedIn(true);
       }
-    } catch {
+    } catch (error) {
       setIsLoggedIn(false);
+      setUser(null);
+      if (error?.response?.status && error.response.status !== 401) {
+        console.log("auth status error", error?.response?.data ?? error.message);
+      }
     }
   };
 
@@ -90,6 +92,7 @@ function App() {
         </Routes>
       </div>
       <Footer />
+      <ChatbotWidget />
     </div>
   );
 }

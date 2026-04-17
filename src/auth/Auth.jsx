@@ -32,7 +32,23 @@ export default function Auth({ setIsLoggedIn, setUser, checkAuthStatus }) {
     <div className="container mt-5" style={{ maxWidth: "400px" }}>
       {/* <h2 className="text-center mb-3 btn btn-outline-primary">Login</h2> */}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autoComplete="off">
+        <input
+          type="text"
+          name="fake-username"
+          autoComplete="username"
+          className="hidden"
+          tabIndex="-1"
+          aria-hidden="true"
+        />
+        <input
+          type="password"
+          name="fake-password"
+          autoComplete="new-password"
+          className="hidden"
+          tabIndex="-1"
+          aria-hidden="true"
+        />
         <input
           type="email"
           name="email"
@@ -40,6 +56,7 @@ export default function Auth({ setIsLoggedIn, setUser, checkAuthStatus }) {
           value={formData.email}
           onChange={handleChange}
           className="form-control mb-2"
+          autoComplete="off"
           required
         />
         <input
@@ -49,6 +66,7 @@ export default function Auth({ setIsLoggedIn, setUser, checkAuthStatus }) {
           value={formData.password}
           onChange={handleChange}
           className="form-control mb-2"
+          autoComplete="new-password"
           required
         />
         <button className="btn btn-primary w-100 mt-2" type="submit">
