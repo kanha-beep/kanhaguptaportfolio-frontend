@@ -102,7 +102,7 @@ export default function Home() {
               <div className="hero-dock-button">🐙</div>
               <div className="hero-dock-button">in</div>
             </div>
-            <div className="hero-location-card">
+            {/* <div className="hero-location-card">
               <div>
                 <p className="text-xs font-medium uppercase tracking-[0.24em] text-[#7ab6ff]">
                   Based In
@@ -112,7 +112,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="hero-spark">✦</div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
