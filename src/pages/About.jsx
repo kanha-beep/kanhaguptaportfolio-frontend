@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { siteContent } from "../content/siteContent";
 import MotionReveal from "../components/MotionReveal.jsx";
+import MotionCard from "../components/MotionCard.jsx";
 
 export default function About() {
   return (
@@ -35,8 +36,9 @@ export default function About() {
 
       <MotionReveal className="mt-20">
       <section className="grid gap-5 lg:grid-cols-3">
-        {siteContent.skillGroups.map((group) => (
-          <article key={group.title} className="glass-card p-6">
+        {siteContent.skillGroups.map((group, index) => (
+          <MotionCard key={group.title} index={index}>
+          <article className="glass-card p-6">
             <p className="text-xs uppercase tracking-[0.28em] text-accent-300">
               Skill Group
             </p>
@@ -57,14 +59,16 @@ export default function About() {
               ))}
             </div>
           </article>
+          </MotionCard>
         ))}
       </section>
       </MotionReveal>
 
       <MotionReveal className="mt-20">
       <section className="grid gap-5 lg:grid-cols-3">
-        {siteContent.timeline.map((item) => (
-          <article key={item.title} className="glass-card p-6">
+        {siteContent.timeline.map((item, index) => (
+          <MotionCard key={item.title} index={index}>
+          <article className="glass-card p-6">
             <p className="text-xs uppercase tracking-[0.28em] text-accent-300">
               {item.period}
             </p>
@@ -75,6 +79,7 @@ export default function About() {
               {item.copy}
             </p>
           </article>
+          </MotionCard>
         ))}
       </section>
       </MotionReveal>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { siteContent } from "../content/siteContent";
 
 const promptChips = [
@@ -13,8 +14,15 @@ export default function ChatbotWidget() {
 
   return (
     <>
+      <AnimatePresence initial={false}>
       {isOpen ? (
-        <aside className="chatbot-shell">
+        <motion.aside
+          className="chatbot-shell"
+          initial={{ opacity: 0, y: 24, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 18, scale: 0.96 }}
+          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        >
           <div className="chatbot-header">
             <div className="flex items-center gap-4">
               <div className="chatbot-avatar">
@@ -51,9 +59,17 @@ export default function ChatbotWidget() {
 
             <div className="flex flex-col items-end gap-4 pt-48">
               {promptChips.map((chip) => (
-                <button key={chip} type="button" className="chatbot-chip">
+                <motion.button
+                  key={chip}
+                  type="button"
+                  className="chatbot-chip"
+                  initial={{ opacity: 0, x: 18 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 14 }}
+                  transition={{ duration: 0.24, delay: 0.08 }}
+                >
                   {chip}
-                </button>
+                </motion.button>
               ))}
             </div>
 
@@ -71,17 +87,20 @@ export default function ChatbotWidget() {
               </div>
             </div>
           </div>
-        </aside>
+        </motion.aside>
       ) : null}
+      </AnimatePresence>
 
-      <button
+      <motion.button
         type="button"
         className="chatbot-collapse"
         aria-label={isOpen ? "Hide assistant" : "Open assistant"}
         onClick={() => setIsOpen((value) => !value)}
+        whileHover={{ y: -3, scale: 1.04 }}
+        whileTap={{ scale: 0.96 }}
       >
         {isOpen ? "˅" : "✦"}
-      </button>
+      </motion.button>
     </>
   );
 }

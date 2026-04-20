@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import api from "../api";
 import { siteContent } from "../content/siteContent";
 import MotionReveal from "../components/MotionReveal.jsx";
+import MotionCard from "../components/MotionCard.jsx";
 
 const contactSteps = [
   "Share the project goal",
@@ -75,8 +76,8 @@ export default function Contact() {
             </p>
             <div className="mt-4 grid gap-4">
               {contactSteps.map((step, index) => (
+                <MotionCard key={step} index={index}>
                 <div
-                  key={step}
                   className="flex items-center gap-4 rounded-lg border border-white/10 bg-white/6 px-4 py-4"
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-md bg-accent-500 text-sm font-semibold text-surface-950">
@@ -84,6 +85,7 @@ export default function Contact() {
                   </div>
                   <p className="text-sm text-white">{step}</p>
                 </div>
+                </MotionCard>
               ))}
             </div>
           </div>

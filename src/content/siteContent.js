@@ -138,7 +138,7 @@ export const siteContent = {
     },
   ],
   profileImage:
-    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80",
+    "https://media.licdn.com/dms/image/v2/D5635AQGw_yWuV4Ve7Q/profile-framedphoto-shrink_400_400/B56Zxa4H4XH8Ac-/0/1771051188007?e=1777273200&v=beta&t=uBy2CD_yDBICx0JQBEID9P_EA7EU6eWT9eRDRlUx_bs",
   aboutImage:
     "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
 };

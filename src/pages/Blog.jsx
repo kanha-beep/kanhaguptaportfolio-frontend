@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import api from "../api";
 import { siteContent } from "../content/siteContent";
 import MotionReveal from "../components/MotionReveal.jsx";
+import MotionCard from "../components/MotionCard.jsx";
 
 export default function Blog() {
   const [posts, setPosts] = useState([]);
@@ -41,7 +42,8 @@ export default function Blog() {
           <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-3">
             {[siteContent.role, siteContent.location, siteContent.availability].map(
               (label, index) => (
-                <div key={label} className="rounded-lg border border-white/10 bg-white/6 p-3">
+                <MotionCard key={label} index={index}>
+                <div className="rounded-lg border border-white/10 bg-white/6 p-3">
                   <p className="text-xs uppercase tracking-[0.28em] text-accent-300">
                     Shelf {String(index + 1).padStart(2, "0")}
                   </p>
@@ -49,6 +51,7 @@ export default function Blog() {
                     {label}
                   </p>
                 </div>
+                </MotionCard>
               ),
             )}
           </div>
@@ -64,8 +67,8 @@ export default function Blog() {
           </div>
         ) : posts.length > 0 ? (
           posts.map((post, index) => (
+            <MotionCard key={post._id} index={index}>
             <Link
-              key={post._id}
               to={`/blogs/${post._id}`}
               className="glass-card block overflow-hidden p-6"
             >
@@ -89,6 +92,7 @@ export default function Blog() {
                 </div>
               </div>
             </Link>
+            </MotionCard>
           ))
         ) : (
           <div className="glass-card p-6 text-sm text-slate-200/80">

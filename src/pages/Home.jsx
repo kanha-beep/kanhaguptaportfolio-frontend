@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import api from "../api";
 import { siteContent } from "../content/siteContent";
 import MotionReveal from "../components/MotionReveal.jsx";
+import MotionCard from "../components/MotionCard.jsx";
 
 export default function Home() {
   const [projects, setProjects] = useState([]);
@@ -141,6 +142,7 @@ export default function Home() {
                     <div className="relative hidden lg:block">
                       <div className="experience-dot" />
                     </div>
+                    <MotionCard index={index}>
                     <article
                       className={`experience-card ${
                         experience.accent === "violet"
@@ -181,9 +183,11 @@ export default function Home() {
                         </div>
                       </div>
                     </article>
+                    </MotionCard>
                   </>
                 ) : (
                   <>
+                    <MotionCard index={index}>
                     <article
                       className={`experience-card ${
                         experience.accent === "violet"
@@ -224,6 +228,7 @@ export default function Home() {
                         </div>
                       </div>
                     </article>
+                    </MotionCard>
                     <div className="relative hidden lg:block">
                       <div className="experience-dot" />
                     </div>
@@ -247,8 +252,9 @@ export default function Home() {
         </div>
 
         <div className="mt-16 grid gap-6 lg:grid-cols-2">
-          {siteContent.educationCards.map((item) => (
-            <article key={`${item.title}-${item.institution}`} className="education-card">
+          {siteContent.educationCards.map((item, index) => (
+            <MotionCard key={`${item.title}-${item.institution}`} index={index}>
+            <article className="education-card">
               <div className="flex items-start justify-between gap-5">
                 <div className="flex items-start gap-5">
                   <div className="education-icon">
@@ -286,6 +292,7 @@ export default function Home() {
                 </p>
               </div>
             </article>
+            </MotionCard>
           ))}
         </div>
       </section>
@@ -303,7 +310,8 @@ export default function Home() {
         <div className="mt-16 grid gap-8 lg:grid-cols-2">
           {featuredProjects.length > 0 ? (
             featuredProjects.slice(0, 2).map((project, index) => (
-              <article key={project._id} className="project-frame">
+              <MotionCard key={project._id} index={index}>
+              <article className="project-frame">
                 <div className="project-visual">
                   <img
                     src={
@@ -352,6 +360,7 @@ export default function Home() {
                   </div>
                 </div>
               </article>
+              </MotionCard>
             ))
           ) : (
             <div className="glass-card p-6 text-sm leading-7 text-slate-200/76 lg:col-span-2">
@@ -384,9 +393,9 @@ export default function Home() {
           </p>
           <div className="mt-8 grid gap-4">
             {latestPosts.length > 0 ? (
-              latestPosts.map((post) => (
+              latestPosts.map((post, index) => (
+                <MotionCard key={post._id} index={index}>
                 <Link
-                  key={post._id}
                   to={`/blogs/${post._id}`}
                   className="glass-card block p-6"
                 >
@@ -405,6 +414,7 @@ export default function Home() {
                     {post.summary}
                   </p>
                 </Link>
+                </MotionCard>
               ))
             ) : (
               <div className="glass-card p-6 text-sm leading-7 text-slate-200/76">

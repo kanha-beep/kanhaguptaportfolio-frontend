@@ -28,7 +28,7 @@ export default function SingleBlogs() {
 
   return (
     <main className="layout section-space">
-      <MotionReveal>
+      <MotionReveal amount={0.12}>
       <article className="mx-auto max-w-4xl rounded-lg border border-white/10 bg-white/6 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] sm:p-8">
         <p className="text-xs uppercase tracking-[0.28em] text-accent-300">
           Blog Detail

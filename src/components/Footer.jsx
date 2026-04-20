@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { siteContent } from "../content/siteContent";
+import MotionReveal from "./MotionReveal.jsx";
+import MotionCard from "./MotionCard.jsx";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -25,6 +27,7 @@ export default function Footer() {
   return (
     <footer className="mt-28 pb-12">
       <div className="layout">
+        <MotionReveal>
         <div className="grid gap-12 border-t border-white/8 pt-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
           <div>
             <h2 className="font-display text-[56px] font-extrabold leading-[0.92] text-white sm:text-[72px] lg:text-[86px]">
@@ -52,8 +55,10 @@ export default function Footer() {
             </a>
           </div>
         </div>
+        </MotionReveal>
 
         <div className="mt-20 grid gap-12 lg:grid-cols-4">
+          <MotionCard index={0}>
           <div>
             <p className="hero-gradient-text font-display text-[40px] font-extrabold uppercase">
               {siteContent.firstName}.{siteContent.lastName}
@@ -71,7 +76,9 @@ export default function Footer() {
               ))}
             </div>
           </div>
+          </MotionCard>
 
+          <MotionCard index={1}>
           <div>
             <p className="footer-label">Navigation</p>
             <div className="mt-8 flex flex-col gap-5">
@@ -82,7 +89,9 @@ export default function Footer() {
               ))}
             </div>
           </div>
+          </MotionCard>
 
+          <MotionCard index={2}>
           <div>
             <p className="footer-label">Expertise</p>
             <div className="mt-8 flex flex-col gap-5">
@@ -93,7 +102,9 @@ export default function Footer() {
               ))}
             </div>
           </div>
+          </MotionCard>
 
+          <MotionCard index={3}>
           <div>
             <p className="footer-label">Connect</p>
             <div className="mt-8 flex flex-col gap-6 text-[18px] text-slate-200/82">
@@ -106,6 +117,7 @@ export default function Footer() {
               <p className="footer-link">📍 Ghaziabad / Noida, IN</p>
             </div>
           </div>
+          </MotionCard>
         </div>
       </div>
     </footer>

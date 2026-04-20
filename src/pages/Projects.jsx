@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
 import { siteContent } from "../content/siteContent";
 import MotionReveal from "../components/MotionReveal.jsx";
+import MotionCard from "../components/MotionCard.jsx";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 44 },
@@ -130,8 +131,8 @@ export default function Projects({ error, setError }) {
         ) : (
           <div className="grid gap-8 lg:grid-cols-2">
             {projects.map((project, index) => (
+              <MotionCard key={project._id} index={index}>
               <motion.article
-                key={project._id}
                 className="project-frame"
                 variants={cardVariants}
                 initial="hidden"
@@ -208,6 +209,7 @@ export default function Projects({ error, setError }) {
                   </div>
                 </motion.div>
               </motion.article>
+              </MotionCard>
             ))}
           </div>
         )}
