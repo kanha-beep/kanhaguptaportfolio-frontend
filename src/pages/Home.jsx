@@ -90,11 +90,11 @@ export default function Home() {
               alt="Portfolio hero"
               className="absolute inset-0 h-full w-full object-cover object-center"
             />
-            <div className="hero-chat-card">
+            {/* <div className="hero-chat-card">
               <p className="text-[17px] leading-8 text-white">
                 {siteContent.assistantMessage} What would you like to know?
               </p>
-            </div>
+            </div> */}
             <div className="hero-dock">
               <div className="hero-dock-button hero-dock-button-active">⌂</div>
               <div className="hero-dock-button">🚀</div>
