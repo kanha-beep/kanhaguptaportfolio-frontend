@@ -51,11 +51,11 @@ export default function ChatbotWidget() {
           </div>
 
           <div className="space-y-6 bg-black px-6 py-6">
-            <div className="chatbot-message">
+            {/* <div className="chatbot-message">
               Hi! 👋 I&apos;m {siteContent.firstName}&apos;s portfolio assistant. I
               can help you learn about experience, projects, skills, and
               background. What would you like to know?
-            </div>
+            </div> */}
 
             <div className="flex flex-col items-end gap-4 pt-48">
               {promptChips.map((chip) => (
