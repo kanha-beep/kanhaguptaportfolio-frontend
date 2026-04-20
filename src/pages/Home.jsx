@@ -63,9 +63,9 @@ export default function Home() {
               </p>
             </div>
             <div className="mt-10 flex flex-wrap gap-4">
-              <a href="#" className="hero-primary-button">
+              {/* <a href="#" className="hero-primary-button">
                 ↓ Download CV
-              </a>
+              </a> */}
               <Link to="/projects" className="hero-secondary-button">
                 Explore Projects 🚀
               </Link>
