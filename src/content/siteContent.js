@@ -13,8 +13,8 @@ export const siteContent = {
   email: "kanhashree2223@gmail.com",
   phone: "+91 9131395725",
   basedIn: "Madhya Pradesh, India",
-  assistantMessage:
-    "Hi! I'm Kanha's portfolio assistant. I can help you learn about experience, projects, skills, and background.",
+  // assistantMessage:
+  //   "Hi! I'm Kanha's portfolio assistant. I can help you learn about experience, projects, skills, and background.",
   about:
     "I work across frontend and backend, with a focus on polished interfaces, practical architecture, and shipping real products. I enjoy taking ideas from rough concept to live deployment with attention to performance and detail.",
   journey:
