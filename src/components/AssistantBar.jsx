@@ -13,11 +13,11 @@ export default function AssistantBar() {
   return (
     <div className="assistant-strip">
       <div className="layout py-4">
-        <div className="assistant-message">
+        {/* <div className="assistant-message">
           Hi! 👋 I&apos;m {siteContent.firstName}&apos;s portfolio assistant. I can
           help you learn about experience, projects, skills, and background.
           What would you like to know?
-        </div>
+        </div> */}
 
         <div className="mt-3 flex items-center justify-between gap-4">
           <div className="assistant-dock">
