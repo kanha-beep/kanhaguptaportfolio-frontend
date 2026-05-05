@@ -1,42 +1,53 @@
 import { useEffect, useState } from "react";
 import api from "../api.js";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import ViewProjectButton from "../components/buttons/ViewProjectButton.jsx";
 import DeleteProjectButton from "../components/buttons/DeleteProjectButton.jsx";
 import AddProjectButton from "../components/buttons/AddProjectButton.jsx";
+
+const emptyProject = {
+  title: "",
+  description: "",
+  url_1: "",
+  url_2: "",
+};
+
 export default function CMSProjects() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const [projects, setProjects] = useState([]);
-  const [newProject, setNewProject] = useState({
-    title: "",
-    description: "",
-    url_1: "",
-    url_2: "",
-  });
+  const [newProject, setNewProject] = useState(emptyProject);
   const handleChange = (e) => {
     setNewProject((p) => ({ ...p, [e.target.name]: e.target.value }));
   };
+
   useEffect(() => {
     const getAllProjects = async () => {
-      const res = await api.get("/projects", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setProjects(res.data);
-      console.log("all projects in managing:", res.data);
+      try {
+        const res = await api.get("/projects", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setProjects(res.data ?? []);
+      } catch (error) {
+        console.log("error in get projects", error?.response?.data?.message);
+      }
     };
+
     getAllProjects();
-  }, []);
+  }, [token]);
+
   const handleAdd = async (e) => {
     e.preventDefault();
-    if (!newProject.title || !newProject.description)
+    if (!newProject.title || !newProject.description || !newProject.url_1) {
       return alert("Please enter details");
+    }
+
     try {
-      console.log("data: ", newProject);
-      const res = await api.post("/projects", newProject);
-      console.log("add project: ", res.data);
-      setProjects([...projects, res.data]);
-      setNewProject({ title: "", description: "" });
+      const res = await api.post("/projects", newProject, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setProjects((previous) => [...previous, res.data]);
+      setNewProject(emptyProject);
     } catch (error) {
       console.log("error in add project", error?.response?.data?.message);
     }
@@ -55,6 +66,7 @@ export default function CMSProjects() {
             value={newProject.title}
             onChange={handleChange}
             className="form-control my-2"
+            required
           />
           <input
             type="text"
@@ -63,6 +75,7 @@ export default function CMSProjects() {
             value={newProject.description}
             onChange={handleChange}
             className="form-control my-2"
+            required
           />
           <input
             type="text"
@@ -71,6 +84,7 @@ export default function CMSProjects() {
             value={newProject.url_1}
             onChange={handleChange}
             className="form-control my-2"
+            required
           />
           <input
             type="text"

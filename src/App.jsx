@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import AssistantBar from "./components/AssistantBar.jsx";
 import ChatbotWidget from "./components/ChatbotWidget.jsx";
+import ScrollToTop from "./components/ScrollToTop.jsx";
 import Home from "./pages/Home.jsx";
 import Contact from "./pages/Contact.jsx";
 import About from "./pages/About.jsx";
@@ -49,6 +50,7 @@ function App() {
 
   return (
     <div className="page-shell flex min-h-screen flex-col">
+      <ScrollToTop />
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <div className="flex-1">
         <Routes>

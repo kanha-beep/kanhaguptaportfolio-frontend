@@ -2,7 +2,7 @@ export const siteContent = {
   brand: "Kanha Gupta",
   firstName: "Kanha",
   lastName: "Gupta",
-  role: "Full Stack Developer",
+  role: "Full Stack (MERN + GenAI)",
   heroTitle:
     "I build production-ready web experiences with strong UI, clean APIs, and fast delivery.",
   heroCopy:
@@ -13,12 +13,14 @@ export const siteContent = {
   email: "kanhashree2223@gmail.com",
   phone: "+91 9131395725",
   basedIn: "Madhya Pradesh, India",
+  github: "http://github.com/kanha-beep",
+  linkedin: "https://www.linkedin.com/in/kanha-gupta-833b10206/",
   // assistantMessage:
   //   "Hi! I'm Kanha's portfolio assistant. I can help you learn about experience, projects, skills, and background.",
   about:
     "I work across frontend and backend, with a focus on polished interfaces, practical architecture, and shipping real products. I enjoy taking ideas from rough concept to live deployment with attention to performance and detail.",
   journey:
-    "Right now this portfolio is wired so your live project links and blog entries can slot in without changing the structure again. Once you send me your project links, I can place them into the featured and full project sections directly.",
+    "I build production-ready MERN products with clean APIs, scalable auth flows, and polished interfaces, while steadily expanding into GenAI-powered workflows and automation.",
   expertise: [
     "React.js",
     "Node.js",
@@ -49,33 +51,33 @@ export const siteContent = {
     },
   ],
   highlights: [
-    { value: "10+", label: "Projects Built" },
-    { value: "03+", label: "Core Stacks" },
-    { value: "100%", label: "Focus on Clean UI" },
+    { value: "03+", label: "Featured SaaS Builds" },
+    { value: "02", label: "Work Experiences" },
+    { value: "MERN + AI", label: "Primary Focus" },
   ],
   experiences: [
     {
-      role: "Frontend Developer Intern",
-      company: "Your Internship 01",
-      period: "Month 2025 - Month 2025",
+      role: "Full Stack Web Developer",
+      company: "EazyBytes",
+      period: "Dec 2025",
       location: "India",
       accent: "blue",
       points: [
-        "Built responsive React interfaces and reusable UI components for faster feature delivery.",
-        "Worked with APIs and frontend state flows to improve dashboard usability.",
-        "Improved overall page responsiveness and polished key user interactions.",
+        "Developed a study SaaS with JWT auth and REST APIs, improving system reliability and reducing admin workload through an admin dashboard.",
+        "Integrated News API personalization features to cut irrelevant content exposure and increase feature usage.",
+        "Implemented input validation, protected routes, and role-based access control to reduce unauthorized access risk.",
       ],
     },
     {
-      role: "MERN Stack Intern",
-      company: "Your Internship 02",
-      period: "Month 2025 - Month 2025",
+      role: "Full Stack Web Developer",
+      company: "InLignTech",
+      period: "Sep 2025 - Nov 2025",
       location: "India",
       accent: "violet",
       points: [
-        "Developed backend routes and integrated MongoDB-based application flows.",
-        "Implemented authentication, role-based access, and CRUD modules.",
-        "Collaborated on bug fixing, optimization, and deployment-ready features.",
+        "Built a multi-tenant notes SaaS with RBAC and REST APIs, enabling scalable and isolated user workflows.",
+        "Developed a task management and analytics dashboard with assignment and tracking flows that improved engagement and reduced manual coordination.",
+        "Optimized task updates, comments, and request workflows to improve completion rate and overall platform usage.",
       ],
     },
   ],

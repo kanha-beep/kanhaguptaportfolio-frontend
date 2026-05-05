@@ -1,6 +1,12 @@
 import React from "react";
-import { Navigate, Outlet } from "react-router-dom"; // fix import
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 export default function ProtectedRoute({ isLoggedIn }) {
-  return isLoggedIn ? <Outlet /> : <Navigate to="/auth" replace/>
+  const location = useLocation();
+
+  return isLoggedIn ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/auth" replace state={{ from: location.pathname }} />
+  );
 }

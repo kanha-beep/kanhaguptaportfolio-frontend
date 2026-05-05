@@ -93,8 +93,8 @@ export default function Projects({ error, setError }) {
               Integration Ready
             </p>
             <p className="mt-4 font-display text-3xl leading-tight">
-              Send your real project links next and I can slot them into this
-              exact structure.
+              Live portfolio work, production dashboards, and SaaS builds all
+              sit inside this exact structure.
             </p>
           </div>
         </div>
