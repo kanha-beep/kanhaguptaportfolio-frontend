@@ -93,7 +93,7 @@ export default function Home({ profileImage }) {
               <img
                 src={profileImage || siteContent.profileImage}
                 alt={siteContent.profileImage}
-                className="absolute inset-0 h-full w-full object-cover object-center"
+                className="absolute inset-0 h-[95%] w-full object-cover object-center"
               />
               <div className="hero-dock">
                 {heroDockItems.map((item, index) =>
