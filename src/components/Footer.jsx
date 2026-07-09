@@ -63,7 +63,7 @@ export default function Footer() {
         <div className="mt-20 grid gap-12 lg:grid-cols-4">
           <MotionCard index={0}>
             <div>
-              <p className="hero-gradient-text max-w-full break-words font-display text-[30px] leading-none font-extrabold uppercase sm:text-[40px]">
+              <p className="hero-gradient-text max-w-full whitespace-nowrap font-display text-[24px] leading-none font-extrabold uppercase sm:text-[32px] lg:text-[40px]">
                 {siteContent.firstName}.{siteContent.lastName}
               </p>
               <div className="mt-8 flex gap-4">

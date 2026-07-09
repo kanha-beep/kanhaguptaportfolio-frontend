@@ -47,10 +47,10 @@ export default function Auth({ setIsLoggedIn, setUser, checkAuthStatus }) {
             <h1 className="mt-5 font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl">
               Sign in to manage projects and blogs.
             </h1>
-            <p className="mt-5 text-base leading-8 text-slate-200/82 sm:text-lg">
+            {/* <p className="mt-5 text-base leading-8 text-slate-200/82 sm:text-lg">
               Use your admin account to update live portfolio entries, project
               links, and blog content without changing the public layout.
-            </p>
+            </p> */}
             <div className="mt-8 space-y-3 text-sm leading-7 text-slate-300/76">
               <p>Keep project links current.</p>
               <p>Update CMS entries in the same structure.</p>

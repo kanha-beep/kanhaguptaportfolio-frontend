@@ -26,6 +26,7 @@ function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [portfolioProfileImage, setPortfolioProfileImage] = useState("");
   const [error, setError] = useState("");
 
   const checkAuthStatus = async () => {
@@ -48,13 +49,26 @@ function App() {
     checkAuthStatus();
   }, []);
 
+  useEffect(() => {
+    const fetchPortfolioProfile = async () => {
+      try {
+        const res = await api.get("/auth/portfolio-profile");
+        setPortfolioProfileImage(res?.data?.profileImage ?? "");
+      } catch (error) {
+        console.log("portfolio profile fetch error", error?.response?.data ?? error.message);
+      }
+    };
+
+    fetchPortfolioProfile();
+  }, []);
+
   return (
     <div className="page-shell flex min-h-screen flex-col">
       <ScrollToTop />
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <div className="flex-1">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home profileImage={portfolioProfileImage} />} />
           <Route path="/about" element={<About />} />
           <Route
             path="/projects"
@@ -94,7 +108,7 @@ function App() {
         </Routes>
       </div>
       <Footer />
-      <ChatbotWidget />
+      <ChatbotWidget profileImage={portfolioProfileImage} />
     </div>
   );
 }

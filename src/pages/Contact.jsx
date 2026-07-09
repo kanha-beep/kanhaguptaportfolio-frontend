@@ -24,6 +24,7 @@ export default function Contact() {
   });
   const [contactData, setContactData] = useState([]);
   const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -32,6 +33,7 @@ export default function Contact() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitting(true);
+    setErrorMessage("");
     try {
       const formData = {
         ...form,
@@ -48,7 +50,10 @@ export default function Contact() {
         projectId: "",
       });
     } catch (error) {
-      console.log("error: ", error.response?.data);
+      setErrorMessage(
+        error.response?.data?.message ||
+          "Something went wrong while sending your message. Please try again."
+      );
     } finally {
       setSubmitting(false);
     }
@@ -118,6 +123,12 @@ export default function Contact() {
 
         <div className="glass-card px-6 py-8 sm:px-8">
           <form onSubmit={handleSubmit} className="space-y-4">
+            {errorMessage ? (
+              <div className="rounded-lg border border-rose-200/30 bg-rose-200/10 px-4 py-3 text-sm text-rose-200">
+                {errorMessage}
+              </div>
+            ) : null}
+
             <div>
               <label htmlFor="name" className="mb-2 block text-sm font-medium text-white">
                 Name

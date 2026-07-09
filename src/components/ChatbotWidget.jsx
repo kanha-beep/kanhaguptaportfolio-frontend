@@ -9,7 +9,7 @@ const promptChips = [
   "How can I contact you?",
 ];
 
-export default function ChatbotWidget() {
+export default function ChatbotWidget({ profileImage }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -27,7 +27,7 @@ export default function ChatbotWidget() {
             <div className="flex items-center gap-4">
               <div className="chatbot-avatar">
                 <img
-                  src={siteContent.profileImage}
+                  src={profileImage || siteContent.profileImage}
                   alt="Assistant avatar"
                   className="h-full w-full object-cover"
                 />

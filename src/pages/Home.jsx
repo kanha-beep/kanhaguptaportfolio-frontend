@@ -13,7 +13,7 @@ const heroDockItems = [
   { label: "LinkedIn", icon: "in", href: siteContent.linkedin },
 ];
 
-export default function Home() {
+export default function Home({ profileImage }) {
   const [projects, setProjects] = useState([]);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -91,7 +91,7 @@ export default function Home() {
           <div className="relative pt-4 lg:pt-0">
             <div className="hero-image bg-[radial-gradient(circle_at_top,#20215a_0%,#11153c_36%,#090f27_100%)] p-0">
               <img
-                src={siteContent.profileImage}
+                src={profileImage || siteContent.profileImage}
                 alt="Portfolio hero"
                 className="absolute inset-0 h-full w-full object-cover object-center"
               />
