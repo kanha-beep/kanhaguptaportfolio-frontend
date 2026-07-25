@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import AssistantBar from "./components/AssistantBar.jsx";
 import ChatbotWidget from "./components/ChatbotWidget.jsx";
-import ScrollToTop from "./components/ScrollToTop.jsx";
 import Home from "./pages/Home.jsx";
 import Contact from "./pages/Contact.jsx";
 import About from "./pages/About.jsx";
@@ -28,6 +27,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [portfolioProfileImage, setPortfolioProfileImage] = useState("");
   const [error, setError] = useState("");
+  const { pathname, hash } = useLocation();
 
   const checkAuthStatus = async () => {
     try {
@@ -62,9 +62,22 @@ function App() {
     fetchPortfolioProfile();
   }, []);
 
+  useEffect(() => {
+    if (hash) {
+      const element = document.querySelector(hash);
+
+      if (element) {
+        const top = element.getBoundingClientRect().top + window.scrollY - 120;
+        window.scrollTo({ top, left: 0, behavior: "smooth" });
+        return;
+      }
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname, hash]);
+
   return (
-    <div className="page-shell flex min-h-screen flex-col">
-      <ScrollToTop />
+    <div className="relative flex min-h-screen flex-col overflow-x-hidden pb-10 pt-5 before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] before:bg-[length:54px_54px] before:content-[''] before:[mask-image:linear-gradient(180deg,rgba(0,0,0,0.8),transparent_92%)]">
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <div className="flex-1">
         <Routes>
@@ -107,7 +120,7 @@ function App() {
           />
         </Routes>
       </div>
-      <Footer />
+      {pathname !== "/contacts" && <Footer />}
       <ChatbotWidget profileImage={portfolioProfileImage} />
     </div>
   );

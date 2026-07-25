@@ -1,7 +1,6 @@
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { siteContent } from "../content/siteContent";
-import MotionReveal from "./MotionReveal.jsx";
-import MotionCard from "./MotionCard.jsx";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -31,23 +30,28 @@ const socialItems = [
 export default function Footer() {
   return (
     <footer className="mt-28 pb-12">
-      <div className="layout">
-        <MotionReveal>
+      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, x: 200 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65, delay: 0, ease: [0.22, 1, 0.36, 1] }}
+        >
           <div className="grid gap-12 border-t border-white/8 pt-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
             <div>
               <h2 className="font-display text-[56px] font-extrabold leading-[0.92] text-white sm:text-[72px] lg:text-[86px]">
                 LET&apos;S BUILD
-                <span className="hero-gradient-text block">SOMETHING GREAT</span>
+                <span className="block bg-[linear-gradient(90deg,#31b8ff_0%,#59d7ff_34%,#7998ff_72%,#b55cff_100%)] bg-clip-text text-transparent">
+                  SOMETHING GREAT
+                </span>
               </h2>
               <p className="mt-10 max-w-3xl text-[22px] leading-[1.6] text-slate-300/82 italic">
-                Open for thoughtful product work, polished interfaces, and
-                end-to-end web builds with the same premium experience across the
-                site.
+                Open for thoughtful product work.
               </p>
             </div>
 
             <div className="flex items-start justify-start gap-4 lg:justify-end">
-              <Link to="/contacts" className="footer-cta-button">
+              <Link to="/contacts" className="inline-flex items-center justify-center rounded-[22px] bg-white px-8 py-5 text-[18px] font-semibold text-surface-950 transition hover:bg-slate-100">
                 Start a Conversation
               </Link>
               <a
@@ -58,12 +62,17 @@ export default function Footer() {
               </a>
             </div>
           </div>
-        </MotionReveal>
+        </motion.div>
 
         <div className="mt-20 grid gap-12 lg:grid-cols-4">
-          <MotionCard index={0}>
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.18 }}
+            transition={{ duration: 0.55, delay: 0, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div>
-              <p className="hero-gradient-text max-w-full whitespace-nowrap font-display text-[24px] leading-none font-extrabold uppercase sm:text-[32px] lg:text-[40px]">
+              <p className="max-w-full whitespace-nowrap bg-[linear-gradient(90deg,#31b8ff_0%,#59d7ff_34%,#7998ff_72%,#b55cff_100%)] bg-clip-text font-display text-[2rem] leading-none font-bold uppercase text-transparent sm:text-[32px] lg:text-[2rem]">
                 {siteContent.firstName}.{siteContent.lastName}
               </p>
               <div className="mt-8 flex gap-4">
@@ -74,53 +83,68 @@ export default function Footer() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={item.label}
-                    className="footer-icon-button"
+                    className="flex h-14 w-14 items-center justify-center rounded-[18px] border border-white/10 bg-white/4 text-xl text-slate-100 transition hover:bg-white/8 hover:border-gray-300"
                   >
                     {item.icon}
                   </a>
                 ))}
               </div>
             </div>
-          </MotionCard>
+          </motion.div>
 
-          <MotionCard index={1}>
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.18 }}
+            transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div>
-              <p className="footer-label">Navigation</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.26em] text-slate-300/55">Navigation</p>
               <div className="mt-8 flex flex-col gap-5">
                 {navLinks.map((link) => (
-                  <Link key={link.label} to={link.to} className="footer-link">
+                  <Link key={link.label} to={link.to} className="text-[18px] text-slate-200/82 transition hover:text-white">
                     {link.label}
                   </Link>
                 ))}
               </div>
             </div>
-          </MotionCard>
+          </motion.div>
 
-          <MotionCard index={2}>
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.18 }}
+            transition={{ duration: 0.55, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div>
-              <p className="footer-label">Expertise</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.26em] text-slate-300/55">Expertise</p>
               <div className="mt-8 flex flex-col gap-5">
                 {expertiseLinks.map((item) => (
-                  <p key={item} className="footer-link">
+                  <p key={item} className="text-[18px] text-slate-200/82 transition hover:text-white">
                     {item}
                   </p>
                 ))}
               </div>
             </div>
-          </MotionCard>
+          </motion.div>
 
-          <MotionCard index={3}>
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.18 }}
+            transition={{ duration: 0.55, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div>
-              <p className="footer-label">Connect</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.26em] text-slate-300/55">Connect</p>
               <div className="mt-8 flex flex-col gap-6 text-[18px] text-slate-200/82">
                 {connectLinks.map((item) => (
-                  <Link key={item.label} to={item.to} className="footer-link">
+                  <Link key={item.label} to={item.to} className="text-[18px] text-slate-200/82 transition hover:text-white">
                     {item.label}
                   </Link>
                 ))}
               </div>
             </div>
-          </MotionCard>
+          </motion.div>
         </div>
       </div>
     </footer>

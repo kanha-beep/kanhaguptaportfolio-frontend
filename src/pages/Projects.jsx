@@ -3,37 +3,6 @@ import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
 import { siteContent } from "../content/siteContent";
-import MotionReveal from "../components/MotionReveal.jsx";
-import MotionCard from "../components/MotionCard.jsx";
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 44 },
-  visible: (index) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.55,
-      ease: [0.22, 1, 0.36, 1],
-      delay: index * 0.1,
-    },
-  }),
-};
-
-const imageVariants = {
-  rest: { scale: 1 },
-  hover: {
-    scale: 1.045,
-    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
-const contentVariants = {
-  rest: { y: 0 },
-  hover: {
-    y: -6,
-    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
-  },
-};
 
 export default function Projects({ error, setError }) {
   const navigate = useNavigate();
@@ -61,11 +30,16 @@ export default function Projects({ error, setError }) {
   }, [setError]);
 
   return (
-    <main className="layout section-space">
-      <MotionReveal>
-      <section className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-        <div className="glass-card px-6 py-8 sm:px-8 sm:py-10">
-          <span className="eyebrow">Featured Work</span>
+    <main className="relative mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-24">
+      <motion.div
+        initial={{ opacity: 0, x: 200 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.65, delay: 0, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <section className="grid gap-8 grid-cols-12 lg:grid-cols-12 my-auto">
+        {/* <div className="rounded-lg border border-white/10 bg-white/5 px-6 py-8 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)] sm:px-8 sm:py-10">
+          <span className="inline-flex items-center gap-2 rounded-full border border-accent-400/30 bg-accent-400/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-accent-300">Featured Work</span>
           <h1 className="mt-5 font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl">
             Projects presented in the same clean tech-portfolio frame.
           </h1>
@@ -74,21 +48,19 @@ export default function Projects({ error, setError }) {
             card proportions as the portfolio style you referenced, while your
             own live work stays at the center.
           </p>
-        </div>
+        </div> */}
 
-        <div className="space-y-4">
-          <div className="glass-card p-6">
-            <p className="text-xs uppercase tracking-[0.28em] text-accent-300">
-              Catalogue Size
+        {/* <div className="space-y-4 bg-yellow-200 flex"> */}
+          <div className="flex col-span-4 rounded-lg border border-white/10 bg-white/5 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)]">
+            <p className="text-lg uppercase tracking-[0.28em] text-accent-300">
+              Total Projects :
             </p>
-            <p className="mt-4 font-display text-5xl text-white">
+            <p className="font-display text-4xl text-white">
               {loading ? "--" : String(projects.length).padStart(2, "0")}
             </p>
-            <p className="mt-3 text-sm leading-7 text-slate-200/76">
-              Every project from your CMS appears here automatically.
-            </p>
+            
           </div>
-          <div className="rounded-lg border border-gold-300/22 bg-[linear-gradient(135deg,#0c1d33_0%,#183c62_55%,#f9b949_135%)] p-6 text-white">
+          {/* <div className="col-span-2 rounded-lg border border-gold-300/22 bg-[linear-gradient(135deg,#0c1d33_0%,#183c62_55%,#f9b949_135%)] p-6 text-white">
             <p className="text-xs uppercase tracking-[0.28em] text-accent-300">
               Integration Ready
             </p>
@@ -96,21 +68,27 @@ export default function Projects({ error, setError }) {
               Live portfolio work, production dashboards, and SaaS builds all
               sit inside this exact structure.
             </p>
-          </div>
-        </div>
-      </section>
-      </MotionReveal>
+          </div>x */}
+        {/* </div> */}
+        </section>
+      </motion.div>
 
-      <MotionReveal className="mt-14">
-      <section>
+      <motion.div
+        className="mt-14"
+        initial={{ opacity: 0, x: 200 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.65, delay: 0, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <section>
         {loading ? (
           <div className="grid gap-5 lg:grid-cols-2">
             {Array.from({ length: 4 }).map((_, index) => (
-              <div key={index} className="project-frame animate-pulse" aria-hidden="true">
-                <div className="project-visual">
+              <div key={index} className="animate-pulse overflow-hidden rounded-[36px] border border-white/10 bg-[#0f1728] shadow-[0_30px_90px_rgba(0,0,0,0.35)]" aria-hidden="true">
+                <div className="relative h-[300px] overflow-hidden border-b border-white/8 bg-[#0a1020] sm:h-[360px]">
                   <div className="h-full w-full bg-white/6" />
                 </div>
-                <div className="project-content">
+                <div className="bg-[linear-gradient(180deg,#0f1728_0%,#10162c_100%)] p-8 sm:p-10">
                   <div className="h-10 w-3/4 rounded-full bg-white/10" />
                   <div className="mt-6 h-4 w-full rounded-full bg-white/10" />
                   <div className="mt-3 h-4 w-11/12 rounded-full bg-white/10" />
@@ -125,25 +103,33 @@ export default function Projects({ error, setError }) {
             ))}
           </div>
         ) : projects.length === 0 ? (
-          <div className="glass-card p-6 text-sm text-rose-200">
+          <div className="rounded-lg border border-white/10 bg-white/5 p-6 text-sm text-rose-200 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)]">
             {error || "No projects available right now."}
           </div>
         ) : (
           <div className="grid gap-8 lg:grid-cols-2">
             {projects.map((project, index) => (
-              <MotionCard key={project._id} index={index}>
               <motion.article
-                className="project-frame"
-                variants={cardVariants}
-                initial="hidden"
-                animate="visible"
+                key={project._id}
+                className="overflow-hidden rounded-[36px] border border-white/10 bg-[#0f1728] shadow-[0_30px_90px_rgba(0,0,0,0.35)]"
+                initial={{ opacity: 0, y: 44 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.18 }}
                 whileHover="hover"
-                custom={index}
+                transition={{
+                  duration: 0.55,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: index * 0.1,
+                }}
               >
-                <div className="project-visual">
+                <div className="relative h-[300px] overflow-hidden border-b border-white/8 bg-[#0a1020] sm:h-[360px]">
                   <motion.img
-                    variants={imageVariants}
-                    initial="rest"
+                    className="h-full w-full object-cover object-top"
+                    initial={{ scale: 1 }}
+                    whileHover={{
+                      scale: 1.045,
+                      transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                    }}
                     src={
                       index % 2 === 0
                         ? "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80"
@@ -151,22 +137,24 @@ export default function Projects({ error, setError }) {
                     }
                     alt={project.title}
                   />
-                  <div className="project-overlay" />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,12,22,0.05)_0%,rgba(8,12,22,0.34)_100%)]" />
                 </div>
 
                 <motion.div
-                  className="project-content"
-                  variants={contentVariants}
-                  initial="rest"
+                  className="bg-[linear-gradient(180deg,#0f1728_0%,#10162c_100%)] p-8 sm:p-10"
+                  initial={{ y: 0 }}
+                  whileHover={{
+                    y: -6,
+                    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+                  }}
                 >
                   <div className="flex items-start justify-between gap-4">
                     <h2 className="font-display text-[34px] font-semibold text-white sm:text-[40px]">
                       {project.title}
                     </h2>
                     <span
-                      className={`mt-3 h-3 w-3 rounded-full ${
-                        index % 2 === 0 ? "bg-[#21b2ff]" : "bg-[#ff3f80]"
-                      }`}
+                      className="mt-3 h-3 w-3 rounded-full bg-[#21b2ff]"
+                      
                     />
                   </div>
 
@@ -176,45 +164,44 @@ export default function Projects({ error, setError }) {
 
                   <div className="mt-8 flex flex-wrap gap-3">
                     {siteContent.expertise.slice(0, 4).map((tag) => (
-                      <span key={`${project._id}-${tag}`} className="project-pill">
+                      <span key={`${project._id}-${tag}`} className="rounded-full border border-white/8 bg-white/6 px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-slate-100">
                         {tag.replace(".js", "").toUpperCase()}
                       </span>
                     ))}
                   </div>
 
-                  <div className="mt-10 flex flex-col gap-4">
+                  <div className="mt-10 flex gap-4">
                     <a
                       href={project.url_1}
                       target="_blank"
                       rel="noreferrer"
-                      className={index % 2 === 0 ? "project-button-main" : "project-button-gradient"}
+                      className={index % 2 === 0 ? "inline-flex items-center rounded-[22px] bg-white px-6 py-5 text-[18px] font-semibold text-surface-950 transition hover:bg-slate-100" : "inline-flex w-full items-center justify-center rounded-[22px] bg-[linear-gradient(90deg,#2764ff_0%,#21c1e8_100%)] px-6 py-5 text-[18px] font-semibold text-white transition hover:opacity-95"}
                     >
                       Explore Project ↗
                     </a>
-                    <div className="flex flex-wrap gap-3">
+                    {/* <div className="flex flex-wrap gap-3 justify-between"> */}
                       <Link
                         to={`/projects/${project._id}`}
-                        className="button-secondary"
+                        className="inline-flex items-center justify-center rounded-md border border-white/16 bg-white/6 px-5 py-3 text-sm font-semibold text-white transition hover:border-accent-400/40 hover:bg-white/10"
                       >
                         Read More
                       </Link>
                       <button
                         type="button"
                         onClick={() => navigate("/contacts", { state: { project } })}
-                        className="button-secondary"
+                        className="inline-flex items-center justify-center rounded-md border border-white/16 bg-white/6 px-5 py-3 text-sm font-semibold text-white transition hover:border-accent-400/40 hover:bg-white/10"
                       >
                         Let&apos;s Build One
                       </button>
-                    </div>
+                    {/* </div> */}
                   </div>
                 </motion.div>
               </motion.article>
-              </MotionCard>
             ))}
           </div>
         )}
-      </section>
-      </MotionReveal>
+        </section>
+      </motion.div>
     </main>
   );
 }
