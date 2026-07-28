@@ -5,7 +5,7 @@ import api from "../api";
 import { siteContent } from "../content/siteContent";
 
 const heroStackIcons = {
-  "MongoDB": "fa-solid fa-database",
+  MongoDB: "fa-solid fa-database",
   Express: "fa-solid fa-server",
   "React.js": "fa-brands fa-react",
   "Node.js": "fa-brands fa-node-js",
@@ -13,10 +13,22 @@ const heroStackIcons = {
 
 const heroDockItems = [
   { label: "Home", iconClass: "fa-solid fa-house", to: "/" },
-  { label: "Projects", iconClass: "fa-solid fa-diagram-project", to: "/projects" },
+  {
+    label: "Projects",
+    iconClass: "fa-solid fa-diagram-project",
+    to: "/projects",
+  },
   { label: "Blog", iconClass: "fa-solid fa-blog", to: "/blogs" },
-  { label: "GitHub", iconClass: "fa-brands fa-github", href: siteContent.github },
-  { label: "LinkedIn", iconClass: "fa-brands fa-linkedin-in", href: siteContent.linkedin },
+  {
+    label: "GitHub",
+    iconClass: "fa-brands fa-github",
+    href: siteContent.github,
+  },
+  {
+    label: "LinkedIn",
+    iconClass: "fa-brands fa-linkedin-in",
+    href: siteContent.linkedin,
+  },
 ];
 
 export default function Home({ profileImage }) {
@@ -56,7 +68,42 @@ export default function Home({ profileImage }) {
   const latestPosts = posts.slice(0, 3);
 
   return (
-    <main className="relative w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-18 lg:px-8 lg:py-20">
+    <main className="relative w-full max-w-7xl p-4 sm:px-6 sm:pt-18 lg:px-8 lg:py-20">
+      <div className="w-full flex items-center justify-center">
+        <div className=" fixed bottom-1 z-20 flex items-center gap-3 rounded-full border border-[#27406f] px-4 py-3 shadow-[0_20px_60px_rgba(0,0,0,0.42)] backdrop-blur-xl">
+          {heroDockItems.map((item, index) =>
+            item.to ? (
+              <Link
+                key={item.label}
+                to={item.to}
+                aria-label={item.label}
+                className={`flex h-12 w-12 items-center justify-center rounded-full border border-white/8 bg-white/6 text-lg text-slate-200 ${index === 0 ? "border-[#287dff] bg-[#102a5f] text-[#5ab0ff] shadow-[inset_0_0_0_1px_rgba(63,155,255,0.45)]" : ""}`}
+              >
+                {item.iconClass ? (
+                  <i className={item.iconClass} aria-hidden="true" />
+                ) : (
+                  item.icon
+                )}
+              </Link>
+            ) : (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={item.label}
+                className="flex h-12 w-12 items-center justify-center rounded-full border border-white/8 bg-white/6 text-lg text-slate-200"
+              >
+                {item.iconClass ? (
+                  <i className={item.iconClass} aria-hidden="true" />
+                ) : (
+                  item.icon
+                )}
+              </a>
+            ),
+          )}
+        </div>
+      </div>
       <motion.div
         initial={{ opacity: 0, x: -200 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -67,14 +114,14 @@ export default function Home({ profileImage }) {
           transition: {
             duration: 3,
             repeat: Infinity,
-            ease:"easeInOut"
+            ease: "easeInOut",
           },
         }}
       >
         {/* hero section */}
-        <section className="grid gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+        <section className="grid gap-10 lg:grid-cols-2 grid-cols-1 lg:items-center lg:mt-0 md:grid-cols-2 sm:mt-[4rem] mt-[4rem]">
           {/* left main */}
-          <div className="space-y-5 pt-2 ml-5 lg:pt-5">
+          <div className="space-y-5 pt-2 ml-5 lg:pt-5 md:col-span-1">
             <span className="inline-flex items-center gap-3 rounded-full border border-[#1848a0] bg-[#091739] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[#4898ff] shadow-[0_0_0_1px_rgba(43,116,255,0.08)]">
               <span className="h-[10px] w-[10px] rounded-full bg-[#2f8cff] shadow-[0_0_0_4px_rgba(47,140,255,0.16)]" />
               {siteContent.availability} {siteContent.heroLocation}
@@ -124,38 +171,13 @@ export default function Home({ profileImage }) {
             </div>
           </div>
           {/* right main */}
-          <div className="relative pt-4 lg:pt-0">
+          <div className="relative pt-4 lg:pt-0 md:col-span-1">
             <div className="relative min-h-[630px] overflow-hidden rounded-lg border border-white/10 bg-[radial-gradient(circle_at_top,#20215a_0%,#11153c_36%,#090f27_100%)] p-0 shadow-[0_24px_80px_rgba(0,0,0,0.32)] after:absolute after:inset-0 after:bg-[linear-gradient(180deg,rgba(7,17,31,0.06)_0%,rgba(7,17,31,0.8)_100%)] after:content-['']">
               <img
                 src={profileImage || siteContent.profileImage}
                 alt={siteContent.profileImage}
                 className="absolute inset-0 h-full w-full object-cover object-center"
               />
-              <div className="static left-[-3%] bottom-3 z-20 flex items-center gap-3 rounded-full border border-[#27406f] bg-[#0b1430]/92 px-4 py-3 shadow-[0_20px_60px_rgba(0,0,0,0.42)] backdrop-blur-xl lg:absolute">
-                {heroDockItems.map((item, index) =>
-                  item.to ? (
-                    <Link
-                      key={item.label}
-                      to={item.to}
-                      aria-label={item.label}
-                      className={`flex h-12 w-12 items-center justify-center rounded-full border border-white/8 bg-white/6 text-lg text-slate-200 ${index === 0 ? "border-[#287dff] bg-[#102a5f] text-[#5ab0ff] shadow-[inset_0_0_0_1px_rgba(63,155,255,0.45)]" : ""}`}
-                    >
-                      {item.iconClass ? <i className={item.iconClass} aria-hidden="true" /> : item.icon}
-                    </Link>
-                  ) : (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={item.label}
-                      className="flex h-12 w-12 items-center justify-center rounded-full border border-white/8 bg-white/6 text-lg text-slate-200"
-                    >
-                      {item.iconClass ? <i className={item.iconClass} aria-hidden="true" /> : item.icon}
-                    </a>
-                  ),
-                )}
-              </div>
             </div>
           </div>
         </section>
@@ -163,7 +185,7 @@ export default function Home({ profileImage }) {
 
       <motion.div
         className="mt-15"
-        initial={{ opacity: 0}}
+        initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 1, delay: 0, ease: [0.22, 1, 0.36, 1] }}
@@ -342,26 +364,28 @@ export default function Home({ profileImage }) {
             </h2>
           </motion.div>
 
-          <div className="mt-16 grid gap-6 lg:grid-cols-2">
+          <div className="mt-16 grid gap-6 lg:grid-cols-2 md:grid-cols-2">
             {siteContent.educationCards.map((item, index) => (
               <motion.div
                 key={`${item.title}-${item.institution}`}
                 className="h-full"
                 initial={{ opacity: 0, x: 200 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, amount: 0.18 }}
+                viewport={{ once: true, amount: 0.18 }}
                 transition={{
                   duration: 0.3,
                   delay: index < 2 ? 0.5 : 0.8,
                   ease: "easeOut",
                 }}
               >
-                <article className="relative flex h-full min-h-[20rem] flex-col overflow-hidden rounded-[32px] border border-white/10 bg-[#131c2d] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.3)] sm:p-10">
+                <article className="md:col-span-1 sm:ml-2 min-w-[90%] relative flex h-full min-h-[20rem] flex-col overflow-hidden rounded-[32px] border border-white/10 bg-[#131c2d] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.3)] sm:p-5">
                   <div className="flex items-start justify-between gap-5">
-                    <div className="flex items-start gap-5">
+                    <div className="flex items-start gap-5  ">
                       <div className="flex h-18 w-18 items-center justify-center rounded-[22px] bg-white text-3xl text-slate-700">
                         <i
-                          className={item.iconClass ?? "fa-solid fa-certificate"}
+                          className={
+                            item.iconClass ?? "fa-solid fa-certificate"
+                          }
                           aria-hidden="true"
                         />
                       </div>
@@ -409,14 +433,11 @@ export default function Home({ profileImage }) {
         className="mt-15 h-full"
         initial={{ opacity: 0, x: -200 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.65, delay: 0, ease: [0.22, 1, 0.36, 1] }}
       >
         <section>
           <div>
-            {/* <span className="inline-flex items-center gap-2 rounded-full border border-[#1848a0] bg-[#091739] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#4898ff]">
-              Portfolio
-            </span> */}
             <h2 className="mt-8 font-display text-[58px] font-extrabold leading-[0.92] text-white sm:text-[74px] lg:text-[94px] py-5 text-center">
               Featured
               <span className="h-[7rem] block bg-[linear-gradient(90deg,#31b8ff_0%,#59d7ff_34%,#7998ff_72%,#b55cff_100%)] bg-clip-text text-transparent">
@@ -424,7 +445,7 @@ export default function Home({ profileImage }) {
               </span>
             </h2>
           </div>
-          <div className="mt-16 grid gap-8 lg:grid-cols-2">
+          <div className="grid gap-8 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 md:grid-cols-2">
             {featuredProjects.length > 0 ? (
               featuredProjects.map((project, index) => (
                 <motion.div
@@ -438,7 +459,8 @@ export default function Home({ profileImage }) {
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 >
-                  <article className="overflow-hidden rounded-[36px] border border-white/10 bg-[#0f1728] shadow-[0_30px_90px_rgba(0,0,0,0.35)]">
+                  {/* bg-[#0f1728] */}
+                  <article className="col-span-1 w-full overflow-hidden rounded-[36px] border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.35)]">
                     <div className="relative h-[300px] overflow-hidden border-b border-white/8 bg-[#0a1020] sm:h-[360px]">
                       <img
                         src={
@@ -452,7 +474,7 @@ export default function Home({ profileImage }) {
                       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,12,22,0.05)_0%,rgba(8,12,22,0.34)_100%)]" />
                     </div>
 
-                    <div className="bg-[linear-gradient(180deg,#0f1728_0%,#10162c_100%)] p-8 sm:p-10">
+                    <div className="bg-[linear-gradient(180deg,#0f1728_0%,#10162c_100%)] p-5 sm:p-5">
                       <div className="flex items-start justify-between gap-4">
                         <h3 className="font-display text-[34px] font-semibold text-white sm:text-[40px]">
                           {project.title}
@@ -472,7 +494,7 @@ export default function Home({ profileImage }) {
                         {siteContent.expertise.slice(0, 4).map((tag) => (
                           <span
                             key={`${project._id}-${tag}`}
-                            className="rounded-full border border-white/8 bg-white/6 px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-slate-100"
+                            className="rounded-full border border-white/8 bg-white/6 p-3 text-sm font-semibold uppercase tracking-[0.08em] text-slate-100"
                           >
                             {tag.replace(".js", "").toUpperCase()}
                           </span>
@@ -499,8 +521,7 @@ export default function Home({ profileImage }) {
               ))
             ) : (
               <div className="rounded-lg border border-white/10 bg-white/5 p-6 text-sm leading-7 text-slate-200/76 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)] lg:col-span-2">
-                Your backend is already connected. Once your project entries or
-                links are added, this area becomes the featured showcase.
+                Loading...
               </div>
             )}
           </div>
@@ -581,4 +602,3 @@ export default function Home({ profileImage }) {
     </main>
   );
 }
-

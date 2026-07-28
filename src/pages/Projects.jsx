@@ -37,22 +37,9 @@ export default function Projects({ error, setError }) {
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.65, delay: 0, ease: [0.22, 1, 0.36, 1] }}
       >
-        <section className="grid gap-8 grid-cols-12 lg:grid-cols-12 my-auto">
-        {/* <div className="rounded-lg border border-white/10 bg-white/5 px-6 py-8 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)] sm:px-8 sm:py-10">
-          <span className="inline-flex items-center gap-2 rounded-full border border-accent-400/30 bg-accent-400/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-accent-300">Featured Work</span>
-          <h1 className="mt-5 font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-            Projects presented in the same clean tech-portfolio frame.
-          </h1>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-slate-200/82 sm:text-lg">
-            This page keeps the same theme, section spacing, dark palette, and
-            card proportions as the portfolio style you referenced, while your
-            own live work stays at the center.
-          </p>
-        </div> */}
-
-        {/* <div className="space-y-4 bg-yellow-200 flex"> */}
-          <div className="flex col-span-4 rounded-lg border border-white/10 bg-white/5 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)]">
-            <p className="text-lg uppercase tracking-[0.28em] text-accent-300">
+        <section className="grid gap-8 grid-cols-12 lg:grid-cols-12 my-auto  text-center">
+          <div className="mt-10 flex col-span-9  md:col-span-6 md:mt-10 lg:mt-0 lg:col-span-5  sm:mt-10 rounded-lg border border-white/10 bg-white/5 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)]">
+            <p className="text-lg uppercase tracking-[0.28em] text-accent-300 flex justify-center items-center">
               Total Projects :
             </p>
             <p className="font-display text-4xl text-white">
@@ -60,21 +47,11 @@ export default function Projects({ error, setError }) {
             </p>
             
           </div>
-          {/* <div className="col-span-2 rounded-lg border border-gold-300/22 bg-[linear-gradient(135deg,#0c1d33_0%,#183c62_55%,#f9b949_135%)] p-6 text-white">
-            <p className="text-xs uppercase tracking-[0.28em] text-accent-300">
-              Integration Ready
-            </p>
-            <p className="mt-4 font-display text-3xl leading-tight">
-              Live portfolio work, production dashboards, and SaaS builds all
-              sit inside this exact structure.
-            </p>
-          </div>x */}
-        {/* </div> */}
         </section>
       </motion.div>
 
       <motion.div
-        className="mt-14"
+        className="mt-7"
         initial={{ opacity: 0, x: 200 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.2 }}

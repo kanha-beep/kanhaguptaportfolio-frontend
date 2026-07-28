@@ -25,54 +25,7 @@ export default function Blog() {
 
   return (
     <main className="relative mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-24">
-      <motion.div
-        initial={{ opacity: 0, x: 200 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.65, delay: 0, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <section className="rounded-lg border border-white/10 bg-white/5 px-3 py-4 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)] sm:px-4 sm:py-5">
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          {/* <div>
-            <h1 className="font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-              Writing in the same polished visual system.
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-slate-200/82 sm:text-lg">
-              Blogs now match the same dark theme, sizing, spacing, and card
-              styling as the portfolio reference, while your own writing stays
-              the only thing changing.
-            </p>
-          </div> */}
-          <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-3">
-            {[siteContent.role, siteContent.location, siteContent.availability].map(
-              (label, index) => (
-                <motion.div
-                  key={label}
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.18 }}
-                  transition={{
-                    duration: 0.55,
-                    delay: index * 0.08,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  <div className="rounded-lg border border-white/10 bg-white/6 p-3">
-                  <p className="text-xs uppercase tracking-[0.28em] text-accent-300">
-                    Shelf {String(index + 1).padStart(2, "0")}
-                  </p>
-                  <p className="mt-3 font-display text-2xl text-white">
-                    {label}
-                  </p>
-                  </div>
-                </motion.div>
-              ),
-            )}
-          </div>
-        </div>
-        </section>
-      </motion.div>
-
+      
       <motion.div
         className="mt-14"
         initial={{ opacity: 0, x: 200 }}
@@ -125,9 +78,8 @@ export default function Blog() {
             </motion.div>
           ))
         ) : (
-          <div className="rounded-lg border border-white/10 bg-white/5 p-6 text-sm text-slate-200/80 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)]">
-            There are no blog posts yet. Add a post in the CMS and this page
-            will populate automatically.
+          <div className="rounded-lg border border-white/10 bg-white/5 p-6 text-[5rem] text-slate-200/80 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)]">
+            There are no blog posts yet.
           </div>
         )}
         </section>

@@ -3,7 +3,9 @@ import React from "react";
 export default function ManageBlogButton() {
   return (
     <div>
-      <button className="p-4 btn btn-outline-primary">Manage Blog Posts</button>
+      <button className="rounded-lg border-2 border-gray-600 bg-red-400 px-4 py-2 text-white transition hover:border-gray-300 hover:bg-red-600">
+        Manage Blog Posts
+      </button>
     </div>
   );
 }

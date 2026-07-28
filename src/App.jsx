@@ -24,12 +24,14 @@ import api from "./api.js";
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [portfolioProfileImage, setPortfolioProfileImage] = useState("");
   const [error, setError] = useState("");
   const { pathname, hash } = useLocation();
 
   const checkAuthStatus = async () => {
+    setAuthLoading(true);
     try {
       const res = await api.get("/auth/me");
       setUser(res?.data);
@@ -40,8 +42,13 @@ function App() {
       setIsLoggedIn(false);
       setUser(null);
       if (error?.response?.status && error.response.status !== 401) {
-        console.log("auth status error", error?.response?.data ?? error.message);
+        console.log(
+          "auth status error",
+          error?.response?.data ?? error.message,
+        );
       }
+    } finally {
+      setAuthLoading(false);
     }
   };
 
@@ -55,7 +62,10 @@ function App() {
         const res = await api.get("/auth/portfolio-profile");
         setPortfolioProfileImage(res?.data?.profileImage ?? "");
       } catch (error) {
-        console.log("portfolio profile fetch error", error?.response?.data ?? error.message);
+        console.log(
+          "portfolio profile fetch error",
+          error?.response?.data ?? error.message,
+        );
       }
     };
 
@@ -77,11 +87,14 @@ function App() {
   }, [pathname, hash]);
 
   return (
-    <div className="relative flex min-h-screen flex-col overflow-x-hidden pb-10 pt-5 before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] before:bg-[length:54px_54px] before:content-[''] before:[mask-image:linear-gradient(180deg,rgba(0,0,0,0.8),transparent_92%)]">
+    <div className="relative flex min-h-screen flex-col overflow-x-hidden pt-5 before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] before:bg-[length:54px_54px] before:content-[''] before:[mask-image:linear-gradient(180deg,rgba(0,0,0,0.8),transparent_92%)]">
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <div className="flex-1">
         <Routes>
-          <Route path="/" element={<Home profileImage={portfolioProfileImage} />} />
+          <Route
+            path="/"
+            element={<Home profileImage={portfolioProfileImage} />}
+          />
           <Route path="/about" element={<About />} />
           <Route
             path="/projects"
@@ -91,15 +104,28 @@ function App() {
           <Route path="/contacts" element={<Contact />} />
           <Route path="/blogs" element={<Blog />} />
           <Route path="/blogs/:blogId" element={<SingleBlogs />} />
-          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
+          <Route
+            element={
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                authLoading={authLoading}
+              />
+            }
+          >
             <Route
               path="/projects/:projectsId/edit"
               element={<EditProjects />}
             />
             <Route path="/blogs/:blogId/edit" element={<EditBlogs />} />
-            <Route path="/cms" element={<CMSHome />} />
-            <Route path="/cms/projects" element={<CMSProjects />} />
-            <Route path="/cms/blogs" element={<CMSBlog />} />
+            {pathname !== "/contacts" && (
+              <Route path="/cms" element={<CMSHome />} />
+            )}
+            {pathname !== "/contacts" && (
+              <Route path="/cms/projects" element={<CMSProjects />} />
+            )}
+            {pathname !== "/contacts" && (
+              <Route path="/cms/blogs" element={<CMSBlog />} />
+            )}
           </Route>
           <Route
             path="/auth"

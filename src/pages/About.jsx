@@ -4,7 +4,7 @@ import { siteContent } from "../content/siteContent";
 
 export default function About() {
   return (
-    <main className="relative mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-24">
+    <main className="relative mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:pt-40">
       <motion.div
         initial={{ opacity: 0, x: 200 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -13,10 +13,10 @@ export default function About() {
       >
         <section className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div>
-          <span className="inline-flex items-center gap-2 rounded-full border border-accent-400/30 bg-accent-400/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-accent-300">About Me</span>
-          <h1 className="mt-5 font-display text-4xl font-semibold leading-tight text-white sm:text-5xl">
+          {/* <span className="inline-flex items-center gap-2 rounded-full border border-accent-400/30 bg-accent-400/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-accent-300">About Me</span> */}
+          {/* <h1 className="mt-5 font-display text-4xl font-semibold leading-tight text-white sm:text-5xl">
             The same premium structure, now tuned for your story.
-          </h1>
+          </h1> */}
           <p className="mt-5 max-w-3xl text-sm leading-7 text-slate-200/80 sm:text-base">{siteContent.about}</p>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-200/80 sm:text-base">{siteContent.journey}</p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -42,16 +42,16 @@ export default function About() {
         className="mt-20"
         initial={{ opacity: 0, x: 200 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.65, delay: 0, ease: [0.22, 1, 0.36, 1] }}
       >
         <section className="grid gap-5 lg:grid-cols-3">
           {siteContent.skillGroups.map((group, index) => (
             <motion.div
               key={group.title}
-              initial={{ opacity: 0, y: 28 }}
+              initial={{ opacity: 0, y: 280 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.18 }}
+              viewport={{ once: false, amount: 0.18 }}
               transition={{
                 duration: 0.55,
                 delay: index * 0.08,
@@ -59,16 +59,16 @@ export default function About() {
               }}
             >
               <article className="rounded-lg border border-white/10 bg-white/5 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)]">
-            <p className="text-xs uppercase tracking-[0.28em] text-accent-300">
+            {/* <p className="text-xs uppercase tracking-[0.28em] text-accent-300">
               Skill Group
-            </p>
+            </p> */}
             <h2 className="mt-4 font-display text-2xl text-white">
               {group.title}
             </h2>
             <p className="mt-4 text-sm leading-7 text-slate-200/76">
               {group.description}
             </p>
-            <div className="mt-5 space-y-2">
+            <div className="space-y-2">
               {group.skills.map((skill) => (
                 <div
                   key={skill}
@@ -83,7 +83,7 @@ export default function About() {
           ))}
         </section>
       </motion.div>
-
+{/* 
       <motion.div
         className="mt-20"
         initial={{ opacity: 0, x: 200 }}
@@ -118,7 +118,7 @@ export default function About() {
             </motion.div>
           ))}
         </section>
-      </motion.div>
+      </motion.div> */}
     </main>
   );
 }

@@ -71,72 +71,10 @@ export default function Contact() {
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.65, delay: 0, ease: [0.22, 1, 0.36, 1] }}
       >
-        <section className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-          <div className="space-y-5">
-            {/* <div className="rounded-lg border border-white/10 bg-white/5 px-6 py-8 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)] sm:px-8"> */}
-              {/* <span className="inline-flex items-center gap-2 rounded-full border border-accent-400/30 bg-accent-400/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-accent-300">Contact Studio</span> */}
-              {/* <h1 className="font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-                Let&apos;s turn interest into a real conversation.
-              </h1> */}
-              {/* <p className="text-base leading-8 text-slate-200/82 sm:text-lg">
-                Same dark theme, same balanced proportions, same polished
-                structure. Only your contact details and project context change.
-              </p> */}
-            {/* </div> */}
+        <section className="grid gap-8 lg:grid-cols-2 md:grid-cols-2">
+          
 
-            {/* <div className="rounded-lg border border-white/10 bg-white/5 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)]">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent-300">
-              What Happens Next
-            </p>
-            <div className="mt-4 grid gap-4">
-              {contactSteps.map((step, index) => (
-                <motion.div
-                  key={step}
-                  initial={{ opacity: 0, y: 200 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.18 }}
-                  transition={{
-                    duration: 0.55,
-                    delay: index * 0.08,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  <div className="flex items-center gap-4 rounded-lg border border-white/10 bg-white/6 px-4 py-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-md bg-accent-500 text-sm font-semibold text-surface-950">
-                      {index + 1}
-                    </div>
-                    <p className="text-sm text-white">{step}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div> */}
-
-            <div className="rounded-lg border border-white/10 bg-white/5 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent-300">
-                Direct Details
-              </p>
-              <div className="mt-4 space-y-3 text-sm leading-7 text-slate-200/76">
-                <p>{siteContent.email}</p>
-                <p>{siteContent.phone}</p>
-                <p>{siteContent.location}</p>
-              </div>
-            </div>
-
-            {projectDetails ? (
-              <div className="rounded-lg border border-accent-400/22 bg-accent-400/10 p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent-300">
-                  Selected Project
-                </p>
-                <p className="mt-3 font-display text-3xl text-white">
-                  {projectDetails.title}
-                </p>
-               
-              </div>
-            ) : null}
-          </div>
-
-          <div className="rounded-lg border border-white/10 bg-white/5 px-6 py-8 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)] sm:px-8">
+          <div className="rounded-lg border border-white/10 md:mt-10 lg:mt-0 mt-5 bg-white/5 px-6 py-8 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)] sm:px-8">
             <form onSubmit={handleSubmit} className="space-y-4">
               {errorMessage ? (
                 <div className="rounded-lg border border-rose-200/30 bg-rose-200/10 px-4 py-3 text-sm text-rose-200">
@@ -228,6 +166,32 @@ export default function Contact() {
                 {submitting ? "Sending..." : "Send Message"}
               </button>
             </form>
+          </div>
+          <div className="space-y-5">
+          
+
+            <div className="rounded-lg border border-white/10 bg-white/5 mt-10 md:col-span- lg:mt-0 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent-300">
+                Direct Details
+              </p>
+              <div className="mt-4 space-y-3 text-sm leading-7 text-slate-200/76">
+                <p>{siteContent.email}</p>
+                <p>{siteContent.phone}</p>
+                <p>{siteContent.location}</p>
+              </div>
+            </div>
+
+            {projectDetails ? (
+              <div className="rounded-lg border border-accent-400/22 bg-accent-400/10 p-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent-300">
+                  Selected Project
+                </p>
+                <p className="mt-3 font-display text-3xl text-white">
+                  {projectDetails.title}
+                </p>
+               
+              </div>
+            ) : null}
           </div>
         </section>
       </motion.div>

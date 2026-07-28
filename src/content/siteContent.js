@@ -31,18 +31,33 @@ export const siteContent = {
     skillGroups: [{
             title: "Frontend Development",
             description: "Responsive UI systems, state handling, component architecture, and performance-minded interactions.",
-            skills: ["React", "JavaScript", "Tailwind", "HTML", "CSS"],
+            skills: ["ReactJS", "Typescript", "NextJS", "JavaScript", "Tailwind", "HTML", "CSS"],
         },
         {
             title: "Backend Development",
             description: "Clean API layers, auth flows, server-side logic, and maintainable data models.",
-            skills: ["Node.js", "Express", "MongoDB", "Mongoose", "JWT"],
+            skills: ["Node.js", "Express", "MongoDB", "Mongoose", "JWT", "JAVA", "Python"],
+        },
+
+        {
+            title: "AI",
+            description: "Integrate AI ML for seamless operation",
+            skills: [
+                "Generative AI",
+                "LangChain",
+                "Prompt Engineering",
+                "Retrieval-Augmented Generation (RAG)",
+                "LLM Application Development",
+                "AI Agent Development",
+                "Vector Databases",
+                "Embedding Models",
+            ]
         },
         {
             title: "Workflow",
             description: "Project delivery with version control, debugging discipline, and practical deployment habits.",
-            skills: ["Git", "Postman", "Vercel", "Netlify", "Render"],
-        },
+            skills: ["Git", "Postman", "Vercel", "Render", "Kubernet", "Docker", "CI/CD"],
+        }
     ],
     highlights: [
         { value: "03+", label: "Featured SaaS Builds" },
@@ -79,7 +94,7 @@ export const siteContent = {
             year: "College",
             institution: "Motilal Nehru College, Delhi University",
             note: "Focused on computer applications, programming fundamentals, databases, and web development.",
-            badge: "Undergraduate",
+            badge: "UG",
             iconClass: "fa-solid fa-graduation-cap",
             accent: "blue",
         },
