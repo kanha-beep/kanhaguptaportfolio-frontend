@@ -33,39 +33,31 @@ const heroDockItems = [
 
 export default function Home({ profileImage }) {
   const [projects, setProjects] = useState([]);
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [projectsLoading, setProjectsLoading] = useState(true);
+  const [projectsError, setProjectsError] = useState("");
 
   useEffect(() => {
-    const fetchHomepageData = async () => {
-      const [projectsResult, blogsResult] = await Promise.allSettled([
-        api.get("/projects"),
-        api.get("/blogs"),
-      ]);
-
-      if (projectsResult.status === "fulfilled") {
-        setProjects(projectsResult.value.data ?? []);
-      } else {
-        console.error(
-          "Failed to load homepage projects:",
-          projectsResult.reason,
+    const fetchFeaturedProjects = async () => {
+      try {
+        setProjectsLoading(true);
+        setProjectsError("");
+        const res = await api.get("/projects");
+        setProjects(res?.data ?? []);
+      } catch (error) {
+        setProjects([]);
+        setProjectsError(
+          error?.response?.data?.message ?? "Unable to load featured projects.",
         );
+        console.error("Failed to load homepage projects:", error);
+      } finally {
+        setProjectsLoading(false);
       }
-
-      if (blogsResult.status === "fulfilled") {
-        setPosts(blogsResult.value.data ?? []);
-      } else {
-        console.error("Failed to load homepage blogs:", blogsResult.reason);
-      }
-
-      setLoading(false);
     };
 
-    fetchHomepageData();
+    fetchFeaturedProjects();
   }, []);
 
   const featuredProjects = projects.slice(0, 3);
-  const latestPosts = posts.slice(0, 3);
 
   return (
     <main className="relative w-full max-w-7xl p-4 sm:px-6 sm:pt-18 lg:px-8 lg:py-20">
@@ -328,9 +320,9 @@ export default function Home({ profileImage }) {
                           </div>
                         </article>
                       </motion.div>
-                      <div className="relative hidden lg:block">
+                      {/* <div className="relative hidden lg:block">
                         <div className="absolute top-1/2 left-1/2 h-[18px] w-[18px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f4f7fb] shadow-[0_0_0_6px_rgba(19,32,61,0.9)]" />
-                      </div>
+                      </div> */}
                       <div />
                     </>
                   )}
@@ -437,7 +429,7 @@ export default function Home({ profileImage }) {
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.65, delay: 0, ease: [0.22, 1, 0.36, 1] }}
       >
-        <section>
+        <section id="education">
           <div>
             <h2 className="mt-8 font-display text-[58px] font-extrabold leading-[0.92] text-white sm:text-[74px] lg:text-[94px] py-5 text-center">
               Featured
@@ -446,8 +438,31 @@ export default function Home({ profileImage }) {
               </span>
             </h2>
           </div>
-          <div className="grid gap-8 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 md:grid-cols-2">
-            {featuredProjects.length > 0 ? (
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+            {projectsLoading ? (
+              Array.from({ length: 2 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="skeleton-card overflow-hidden rounded-[36px] border border-white/10 bg-[#0f1728] shadow-[0_30px_90px_rgba(0,0,0,0.35)]"
+                  aria-hidden="true"
+                >
+                  <div className="relative h-[300px] overflow-hidden border-b border-white/8 bg-[#0a1020] sm:h-[360px]">
+                    <div className="h-full w-full bg-white/6" />
+                  </div>
+                  <div className="bg-[linear-gradient(180deg,#0f1728_0%,#10162c_100%)] p-5 sm:p-5">
+                    <div className="h-10 w-3/4 rounded-full bg-white/10" />
+                    <div className="mt-6 h-4 w-full rounded-full bg-white/10" />
+                    <div className="mt-3 h-4 w-11/12 rounded-full bg-white/10" />
+                    <div className="mt-8 flex flex-wrap gap-3">
+                      <div className="h-11 w-28 rounded-full bg-white/10" />
+                      <div className="h-11 w-28 rounded-full bg-white/10" />
+                      <div className="h-11 w-28 rounded-full bg-white/10" />
+                    </div>
+                    <div className="mt-10 h-16 w-full rounded-[22px] bg-white/10" />
+                  </div>
+                </div>
+              ))
+            ) : featuredProjects.length > 0 ? (
               featuredProjects.map((project, index) => (
                 <motion.div
                   key={project._id}
@@ -522,7 +537,7 @@ export default function Home({ profileImage }) {
               ))
             ) : (
               <div className="rounded-lg border border-white/10 bg-white/5 p-6 text-sm leading-7 text-slate-200/76 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)] lg:col-span-2">
-                Loading...
+                {projectsError || "Featured projects are not available right now."}
               </div>
             )}
           </div>
