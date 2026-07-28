@@ -350,18 +350,19 @@ export default function Home({ profileImage }) {
       >
         <section id="education">
           <motion.div
-            className="text-center"
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.4 }}
             transition={{ duration: 0.65, delay: 0, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h2 className="mt-4 font-display text-[58px] font-extrabold leading-[0.92] text-white sm:text-[74px] lg:text-[94px]">
-              Education
-              <span className="block bg-[linear-gradient(90deg,#31b8ff_0%,#59d7ff_34%,#7998ff_72%,#b55cff_100%)] bg-clip-text text-transparent">
-                Certifications
-              </span>
-            </h2>
+            <div className="text-center text-[3.4rem]">
+              <h2 className="mt-4 font-display font-extrabold leading-[0.92] text-white sm:text-[74px] lg:text-[94px]">
+                Education
+                <span className="mt-2 block bg-[linear-gradient(90deg,#31b8ff_0%,#59d7ff_34%,#7998ff_72%,#b55cff_100%)] bg-clip-text text-transparent">
+                  Certifications
+                </span>
+              </h2>
+            </div>
           </motion.div>
 
           <div className="mt-16 grid gap-6 lg:grid-cols-2 md:grid-cols-2">
