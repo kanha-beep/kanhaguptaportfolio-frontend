@@ -424,10 +424,9 @@ export default function Home({ profileImage }) {
 
       <motion.div
         className="mt-15 h-full"
-        initial={{ opacity: 0, x: -200 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.65, delay: 0, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
         <section id="education">
           <div>
@@ -466,11 +465,10 @@ export default function Home({ profileImage }) {
               featuredProjects.map((project, index) => (
                 <motion.div
                   key={project._id}
-                  initial={{ opacity: 0, x: 200 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.18 }}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{
-                    duration: 0.55,
+                    duration: 0.45,
                     delay: index * 0.08,
                     ease: [0.22, 1, 0.36, 1],
                   }}
