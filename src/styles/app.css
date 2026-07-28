@@ -44,3 +44,33 @@
     color: white;
   }
 }
+
+@layer components {
+  .skeleton-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skeleton-card::after {
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.04) 28%,
+      rgba(255, 255, 255, 0.14) 50%,
+      rgba(255, 255, 255, 0.04) 72%,
+      transparent 100%
+    );
+    animation: skeleton-shimmer 1.7s ease-in-out infinite;
+    content: "";
+    pointer-events: none;
+  }
+}
+
+@keyframes skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}

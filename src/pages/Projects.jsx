@@ -61,7 +61,7 @@ export default function Projects({ error, setError }) {
         {loading ? (
           <div className="grid gap-5 lg:grid-cols-2">
             {Array.from({ length: 4 }).map((_, index) => (
-              <div key={index} className="animate-pulse overflow-hidden rounded-[36px] border border-white/10 bg-[#0f1728] shadow-[0_30px_90px_rgba(0,0,0,0.35)]" aria-hidden="true">
+              <div key={index} className="skeleton-card overflow-hidden rounded-[36px] border border-white/10 bg-[#0f1728] shadow-[0_30px_90px_rgba(0,0,0,0.35)]" aria-hidden="true">
                 <div className="relative h-[300px] overflow-hidden border-b border-white/8 bg-[#0a1020] sm:h-[360px]">
                   <div className="h-full w-full bg-white/6" />
                 </div>
