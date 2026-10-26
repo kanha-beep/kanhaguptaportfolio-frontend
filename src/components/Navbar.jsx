@@ -8,7 +8,6 @@ const desktopLinks = [
   { to: "/about", label: "About" },
   { to: "/projects", label: "Projects" },
   { to: "/blogs", label: "Blog" },
-  { to: "/animations", label: "Animations" },
   { to: "/contacts", label: "Contact" },
   { to: "/cms", label: "CMS" },
 ];
