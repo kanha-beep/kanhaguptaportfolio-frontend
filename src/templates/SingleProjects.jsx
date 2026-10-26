@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../api.js";
 import EditProjectButton from "../components/buttons/EditProjectButton.jsx";
+import ProjectMediaGallery from "../components/ProjectMediaGallery.jsx";
 
 export default function SingleProjects() {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ export default function SingleProjects() {
         <p className="mt-8 text-base leading-8 text-slate-200/78">
           {projects.description}
         </p>
+        <ProjectMediaGallery project={projects} />
         {projects.url_1 ? (
           <a
             href={projects.url_1}

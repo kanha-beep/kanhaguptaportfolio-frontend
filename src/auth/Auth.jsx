@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import api from "../api.js";
+import { SignIn } from "@clerk/react";
 
 export default function Auth({ setIsLoggedIn, setUser, checkAuthStatus }) {
+  const clerkEnabled = Boolean(import.meta.env.VITE_CLERK_PUBLISHABLE_KEY);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -37,6 +39,14 @@ export default function Auth({ setIsLoggedIn, setUser, checkAuthStatus }) {
       setSubmitting(false);
     }
   };
+
+  if (clerkEnabled) {
+    return (
+      <main className="relative mx-auto flex min-h-[75vh] w-full items-center justify-center px-4 py-24">
+        <SignIn routing="path" path="/auth" fallbackRedirectUrl="/cms" />
+      </main>
+    );
+  }
 
   return (
     <main className="relative mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-[10rem]">

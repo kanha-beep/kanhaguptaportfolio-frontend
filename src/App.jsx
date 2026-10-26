@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import Lenis from "lenis";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
@@ -9,6 +11,7 @@ import Contact from "./pages/Contact.jsx";
 import About from "./pages/About.jsx";
 import Projects from "./pages/Projects.jsx";
 import Blog from "./pages/Blog.jsx";
+import Animations from "./pages/Animations.jsx";
 import EditBlogs from "./templates/EditBlogs.jsx";
 import SingleBlogs from "./templates/SingleBlogs.jsx";
 import CMSHome from "./cms/CMSHome.jsx";
@@ -28,7 +31,31 @@ function App() {
   const [user, setUser] = useState(null);
   const [portfolioProfileImage, setPortfolioProfileImage] = useState("");
   const [error, setError] = useState("");
-  const { pathname, hash } = useLocation();
+  const location = useLocation();
+  const { pathname, hash } = location;
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return undefined;
+    }
+
+    const lenis = new Lenis({
+      duration: 1.1,
+      smoothWheel: true,
+      touchMultiplier: 1.25,
+    });
+    let frameId;
+    const raf = (time) => {
+      lenis.raf(time);
+      frameId = requestAnimationFrame(raf);
+    };
+    frameId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      lenis.destroy();
+    };
+  }, []);
 
   const checkAuthStatus = async () => {
     setAuthLoading(true);
@@ -87,64 +114,78 @@ function App() {
   }, [pathname, hash]);
 
   return (
-    <div className="relative flex min-h-screen flex-col overflow-x-hidden pt-5 before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] before:bg-[length:54px_54px] before:content-[''] before:[mask-image:linear-gradient(180deg,rgba(0,0,0,0.8),transparent_92%)]">
+    <div className="app-shell relative w-[98%] flex min-h-screen flex-col overflow-x-hidden overflow-y-hidden pt-5 before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] before:bg-[length:54px_54px] before:content-[''] before:[mask-image:linear-gradient(180deg,rgba(0,0,0,0.8),transparent_92%)]">
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <div className="flex-1">
-        <Routes>
-          <Route
-            path="/"
-            element={<Home profileImage={portfolioProfileImage} />}
-          />
-          <Route path="/about" element={<About />} />
-          <Route
-            path="/projects"
-            element={<Projects error={error} setError={setError} />}
-          />
-          <Route path="/projects/:projectsId" element={<SingleProjects />} />
-          <Route path="/contacts" element={<Contact />} />
-          <Route path="/blogs" element={<Blog />} />
-          <Route path="/blogs/:blogId" element={<SingleBlogs />} />
-          <Route
-            element={
-              <ProtectedRoute
-                isLoggedIn={isLoggedIn}
-                authLoading={authLoading}
-              />
-            }
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={pathname}
+            initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -12, filter: "blur(6px)" }}
+            transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Route
-              path="/projects/:projectsId/edit"
-              element={<EditProjects />}
-            />
-            <Route path="/blogs/:blogId/edit" element={<EditBlogs />} />
-            {pathname !== "/contacts" && (
-              <Route path="/cms" element={<CMSHome />} />
-            )}
-            {pathname !== "/contacts" && (
-              <Route path="/cms/projects" element={<CMSProjects />} />
-            )}
-            {pathname !== "/contacts" && (
-              <Route path="/cms/blogs" element={<CMSBlog />} />
-            )}
-          </Route>
-          <Route
-            path="/auth"
-            element={
-              <Auth
-                setIsAuth={setIsAuth}
-                isAuth={isAuth}
-                setIsLoggedIn={setIsLoggedIn}
-                user={user}
-                setUser={setUser}
-                checkAuthStatus={checkAuthStatus}
+            <Routes location={location}>
+              <Route
+                path="/"
+                element={<Home profileImage={portfolioProfileImage} />}
               />
-            }
-          />
-          <Route
-            path="/logout"
-            element={<Logout setIsLoggedIn={setIsLoggedIn} />}
-          />
-        </Routes>
+              <Route path="/about" element={<About />} />
+              <Route
+                path="/projects"
+                element={<Projects error={error} setError={setError} />}
+              />
+              <Route
+                path="/projects/:projectsId"
+                element={<SingleProjects />}
+              />
+              <Route path="/contacts" element={<Contact />} />
+              <Route path="/blogs" element={<Blog />} />
+              <Route path="/animations" element={<Animations />} />
+              <Route path="/blogs/:blogId" element={<SingleBlogs />} />
+              <Route
+                element={
+                  <ProtectedRoute
+                    isLoggedIn={isLoggedIn}
+                    authLoading={authLoading}
+                  />
+                }
+              >
+                <Route
+                  path="/projects/:projectsId/edit"
+                  element={<EditProjects />}
+                />
+                <Route path="/blogs/:blogId/edit" element={<EditBlogs />} />
+                {pathname !== "/contacts" && (
+                  <Route path="/cms" element={<CMSHome />} />
+                )}
+                {pathname !== "/contacts" && (
+                  <Route path="/cms/projects" element={<CMSProjects />} />
+                )}
+                {pathname !== "/contacts" && (
+                  <Route path="/cms/blogs" element={<CMSBlog />} />
+                )}
+              </Route>
+              <Route
+                path="/auth"
+                element={
+                  <Auth
+                    setIsAuth={setIsAuth}
+                    isAuth={isAuth}
+                    setIsLoggedIn={setIsLoggedIn}
+                    user={user}
+                    setUser={setUser}
+                    checkAuthStatus={checkAuthStatus}
+                  />
+                }
+              />
+              <Route
+                path="/logout"
+                element={<Logout setIsLoggedIn={setIsLoggedIn} />}
+              />
+            </Routes>
+          </motion.div>
+        </AnimatePresence>
       </div>
       {pathname !== "/contacts" && <Footer />}
       <ChatbotWidget profileImage={portfolioProfileImage} />

@@ -8,6 +8,7 @@ const desktopLinks = [
   { to: "/about", label: "About" },
   { to: "/projects", label: "Projects" },
   { to: "/blogs", label: "Blog" },
+  { to: "/animations", label: "Animations" },
   { to: "/contacts", label: "Contact" },
   { to: "/cms", label: "CMS" },
 ];
@@ -18,6 +19,7 @@ const mobileLinks = [
   { to: "/about", label: "Education" },
   { to: "/about", label: "About" },
   { to: "/blogs", label: "Blog" },
+  { to: "/animations", label: "Animations" },
   { to: "/contacts", label: "Contact" },
   { to: "/cms", label: "CMS" },
 ];
