@@ -33,10 +33,6 @@
   padding: 18px 0 58px;
 }
 
-.project-coverflow__slide {
-  width: min(82vw, 470px);
-}
-
 .experience-coverflow {
   --swiper-theme-color: #67f0dd;
   --swiper-navigation-color: #ffffff;

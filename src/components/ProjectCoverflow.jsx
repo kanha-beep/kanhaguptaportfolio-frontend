@@ -52,7 +52,7 @@ export default function ProjectCoverflow({ projects, compact = false }) {
       }}
     >
       {projects.map((project, index) => (
-        <SwiperSlide key={project._id} className="project-coverflow__slide">
+        <SwiperSlide key={project._id} className="w-[40%]">
           <article className="group overflow-hidden rounded-[32px] border border-white/12 bg-[#0f1728] shadow-[0_30px_90px_rgba(0,0,0,0.42)]">
             <div className="relative h-52 overflow-hidden border-b border-white/8 sm:h-64">
               <img

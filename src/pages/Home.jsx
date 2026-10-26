@@ -193,11 +193,7 @@ export default function Home({ profileImage }) {
 
       <section className="mt-14 overflow-hidden" aria-labelledby="skills-showcase-title">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-          <div>
             <p className="text-xs font-bold uppercase tracking-[.24em] text-cyan-200">Toolbox</p>
-            <h2 id="skills-showcase-title" className="mt-2 font-display text-3xl font-semibold text-white sm:text-4xl">Built with modern tools</h2>
-          </div>
-          <p className="text-sm text-slate-300/70">Drag to explore the stack</p>
         </div>
         <SkillsSwiper skills={siteContent.expertise} />
       </section>
@@ -265,7 +261,7 @@ export default function Home({ profileImage }) {
               nextSlideMessage: "Show next qualification",
               paginationBulletMessage: "Show qualification {{index}}",
             }}
-            className="education-swiper mt-16 !px-1 !pb-12"
+            className="mt-16 !px-1 !pb-12"
           >
             {educationCards.map((item, index) => (
               <SwiperSlide
@@ -273,14 +269,14 @@ export default function Home({ profileImage }) {
                 className="!h-auto"
               >
                 <motion.article
-                  className="relative flex h-full min-h-[20rem] flex-col overflow-hidden rounded-[32px] border border-white/10 bg-[#131c2d] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.3)] sm:p-5"
+                  className="relative flex h-full w-[50rem] min-h-[20rem] flex-col overflow-hidden rounded-[32px] border border-white/10 bg-[#131c2d] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.3)] sm:p-5"
                   initial={{ opacity: 0, x: 70 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.18 }}
                   transition={{ duration: 0.4, delay: index * 0.06, ease: "easeOut" }}
                 >
                   <div className="flex items-start justify-between gap-5">
-                    <div className="flex items-start gap-5  ">
+                    <div className="flex items-start gap-5 ">
                       <div className="flex h-18 w-18 items-center justify-center rounded-[22px] bg-white text-3xl text-slate-700">
                         <i
                           className={

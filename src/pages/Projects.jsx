@@ -55,10 +55,8 @@ export default function Projects({ error, setError }) {
         <section className="mt-12" aria-labelledby="projects-showcase-title">
           <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-200">Interactive selection</p>
               <h1 id="projects-showcase-title" className="mt-2 font-display text-4xl font-semibold text-white sm:text-5xl">Project showcase</h1>
             </div>
-            <p className="max-w-xs text-sm leading-6 text-slate-300/72">Drag, swipe, use the arrows, or select a project to explore its case study.</p>
           </div>
           <ProjectCoverflow projects={projects.slice(0, 6)} compact />
         </section>
