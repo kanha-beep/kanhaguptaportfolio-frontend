@@ -1,8 +1,17 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { A11y, EffectCards, Keyboard, Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-cards";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import api from "../api";
 import { siteContent } from "../content/siteContent";
+import ProjectCoverflow from "../components/ProjectCoverflow";
+import SkillsSwiper from "../components/SkillsSwiper";
+import ExperienceCoverflow from "../components/ExperienceCoverflow";
 
 const heroStackIcons = {
   MongoDB: "fa-solid fa-database",
@@ -33,6 +42,7 @@ const heroDockItems = [
 
 export default function Home({ profileImage }) {
   const [projects, setProjects] = useState([]);
+  const [educationCards, setEducationCards] = useState([]);
   const [projectsLoading, setProjectsLoading] = useState(true);
   const [projectsError, setProjectsError] = useState("");
 
@@ -55,6 +65,12 @@ export default function Home({ profileImage }) {
     };
 
     fetchFeaturedProjects();
+  }, []);
+
+  useEffect(() => {
+    api.get("/content/education")
+      .then((res) => setEducationCards(res?.data ?? []))
+      .catch((error) => console.error("Failed to load education content:", error));
   }, []);
 
   const featuredProjects = projects.slice(0, 3);
@@ -175,6 +191,17 @@ export default function Home({ profileImage }) {
         </section>
       </motion.div>
 
+      <section className="mt-14 overflow-hidden" aria-labelledby="skills-showcase-title">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[.24em] text-cyan-200">Toolbox</p>
+            <h2 id="skills-showcase-title" className="mt-2 font-display text-3xl font-semibold text-white sm:text-4xl">Built with modern tools</h2>
+          </div>
+          <p className="text-sm text-slate-300/70">Drag to explore the stack</p>
+        </div>
+        <SkillsSwiper skills={siteContent.expertise} />
+      </section>
+
       <motion.div
         className="mt-15"
         initial={{ opacity: 0 }}
@@ -195,140 +222,8 @@ export default function Home({ profileImage }) {
               </span>
             </h2>
           </div>
-          {/* main div below profesisonal expericne which contains all text */}
-          <div className="relative mt-20">
-            <div className="absolute top-0 bottom-0 left-1/2 hidden w-px -translate-x-1/2 bg-[linear-gradient(180deg,rgba(56,118,255,0.4),rgba(137,88,255,0.4))] lg:block" />
-            <div className="grid gap-12">
-              {/* 2 separate div for 2 experiences horizontal */}
-              {siteContent.experiences.map((experience, index) => (
-                <div
-                  key={`${experience.company}-${experience.role}`}
-                  className="grid items-start gap-6 lg:grid-cols-[1fr_80px_1fr]"
-                >
-                  {index % 2 === 0 ? (
-                    <>
-                      <div />
-                      <div className="relative hidden lg:block">
-                        <div className="absolute top-1/2 left-1/2 h-[18px] w-[18px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f4f7fb] shadow-[0_0_0_6px_rgba(19,32,61,0.9)]" />
-                      </div>
-                      <motion.div
-                        initial={{ opacity: 0, x: 200 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: false, amount: 0.18 }}
-                        transition={{
-                          duration: 0.55,
-                          delay: index * 0.08,
-                          ease: [0.22, 1, 0.36, 1],
-                        }}
-                      >
-                        {/* actual full box of single experience vertical */}
-                        <article
-                          className={`relative rounded-[32px] border bg-[#111827] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.34)] sm:p-10 ${
-                            experience.accent === "violet"
-                              ? "border-[rgba(172,84,255,0.22)]"
-                              : "border-[rgba(0,150,255,0.22)]"
-                          }`}
-                        >
-                          {/* top header */}
-                          <div className="flex items-start gap-5">
-                            <div className="flex h-18 w-[2rem] items-center  mt-2 justify-center rounded-3xl border border-white/8 bg-white/6 text-xl font-semibold text-slate-200">
-                              {experience.company.slice(0, 2).toUpperCase()}
-                            </div>
-                            <div className="">
-                              <h3 className="font-display text-[28px] font-semibold text-white">
-                                {experience.role}
-                              </h3>
-                              <p className="mt-1 text-[15px] font-semibold uppercase tracking-[0.08em] text-[#3e8fff]">
-                                {experience.company}
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[15px] text-slate-300/72">
-                            <span>{experience.period}</span>
-                            <span>{experience.location}</span>
-                          </div>
-
-                          <div className="mt-8 border-t border-white/8 pt-8">
-                            <div className="space-y-5">
-                              {experience.points.map((point) => (
-                                <div
-                                  key={point}
-                                  className="flex gap-4 text-[16px] leading-9 text-slate-300/88"
-                                >
-                                  <span className="text-[#3f8fff]">&gt;</span>
-                                  <p>{point}</p>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        </article>
-                      </motion.div>
-                    </>
-                  ) : (
-                    <>
-                      <motion.div
-                        initial={{ opacity: 0, x: -200 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: false, amount: 0.18 }}
-                        transition={{
-                          duration: 0.55,
-                          delay: index * 0.08,
-                          ease: [0.22, 1, 0.36, 1],
-                        }}
-                      >
-                        {/* // 2nd single experience vertical */}
-
-                        <article
-                          className={`relative rounded-[32px] border bg-[#111827] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.34)] sm:p-10 ${
-                            experience.accent === "violet"
-                              ? "border-[rgba(172,84,255,0.22)]"
-                              : "border-[rgba(0,150,255,0.22)]"
-                          }`}
-                        >
-                          <div className="flex items-start gap-5">
-                            <div className="flex mt-2 h-18 w-[2rem] items-center justify-center rounded-3xl border border-white/8 bg-white/6 text-xl font-semibold text-slate-200">
-                              {experience.company.slice(0, 2).toUpperCase()}
-                            </div>
-                            <div>
-                              <h3 className="font-display text-[28px] font-semibold text-white">
-                                {experience.role}
-                              </h3>
-                              <p className="mt-1 text-[15px] font-semibold uppercase tracking-[0.08em] text-[#3e8fff]">
-                                {experience.company}
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[15px] text-slate-300/72">
-                            <span>{experience.period}</span>
-                            <span>{experience.location}</span>
-                          </div>
-
-                          <div className="mt-8 border-t border-white/8 pt-8">
-                            <div className="space-y-5">
-                              {experience.points.map((point) => (
-                                <div
-                                  key={point}
-                                  className="flex gap-4 text-[16px] leading-9 text-slate-300/88"
-                                >
-                                  <span className="text-[#3f8fff]">&gt;</span>
-                                  <p>{point}</p>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        </article>
-                      </motion.div>
-                      {/* <div className="relative hidden lg:block">
-                        <div className="absolute top-1/2 left-1/2 h-[18px] w-[18px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f4f7fb] shadow-[0_0_0_6px_rgba(19,32,61,0.9)]" />
-                      </div> */}
-                      <div />
-                    </>
-                  )}
-                </div>
-              ))}
-            </div>
+          <div className="mt-14">
+            <ExperienceCoverflow experiences={siteContent.experiences} />
           </div>
         </section>
       </motion.div>
@@ -357,21 +252,33 @@ export default function Home({ profileImage }) {
             </div>
           </motion.div>
 
-          <div className="mt-16 grid gap-6 lg:grid-cols-2 md:grid-cols-2">
-            {siteContent.educationCards.map((item, index) => (
-              <motion.div
+          <Swiper
+            modules={[A11y, EffectCards, Keyboard, Navigation, Pagination]}
+            effect="cards"
+            navigation
+            pagination={{ clickable: true }}
+            keyboard={{ enabled: true }}
+            cardsEffect={{ perSlideOffset: 9, perSlideRotate: 2, rotate: true }}
+            slidesPerView={1}
+            a11y={{
+              prevSlideMessage: "Show previous qualification",
+              nextSlideMessage: "Show next qualification",
+              paginationBulletMessage: "Show qualification {{index}}",
+            }}
+            className="education-swiper mt-16 !px-1 !pb-12"
+          >
+            {educationCards.map((item, index) => (
+              <SwiperSlide
                 key={`${item.title}-${item.institution}`}
-                className="h-full"
-                initial={{ opacity: 0, x: 200 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.18 }}
-                transition={{
-                  duration: 0.3,
-                  delay: index < 2 ? 0.5 : 0.8,
-                  ease: "easeOut",
-                }}
+                className="!h-auto"
               >
-                <article className="md:col-span-1 sm:ml-2 min-w-[90%] relative flex h-full min-h-[20rem] flex-col overflow-hidden rounded-[32px] border border-white/10 bg-[#131c2d] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.3)] sm:p-5">
+                <motion.article
+                  className="relative flex h-full min-h-[20rem] flex-col overflow-hidden rounded-[32px] border border-white/10 bg-[#131c2d] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.3)] sm:p-5"
+                  initial={{ opacity: 0, x: 70 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.18 }}
+                  transition={{ duration: 0.4, delay: index * 0.06, ease: "easeOut" }}
+                >
                   <div className="flex items-start justify-between gap-5">
                     <div className="flex items-start gap-5  ">
                       <div className="flex h-18 w-18 items-center justify-center rounded-[22px] bg-white text-3xl text-slate-700">
@@ -415,10 +322,10 @@ export default function Home({ profileImage }) {
                       "{item.note}"
                     </p>
                   </div>
-                </article>
-              </motion.div>
+                </motion.article>
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         </section>
       </motion.div>
 
@@ -437,7 +344,7 @@ export default function Home({ profileImage }) {
               </span>
             </h2>
           </div>
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+          <div className="project-showcase-shell">
             {projectsLoading ? (
               Array.from({ length: 2 }).map((_, index) => (
                 <div
@@ -462,77 +369,7 @@ export default function Home({ profileImage }) {
                 </div>
               ))
             ) : featuredProjects.length > 0 ? (
-              featuredProjects.map((project, index) => (
-                <motion.div
-                  key={project._id}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.45,
-                    delay: index * 0.08,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  {/* bg-[#0f1728] */}
-                  <article className="col-span-1 w-full overflow-hidden rounded-[36px] border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.35)]">
-                    <div className="relative h-[300px] overflow-hidden border-b border-white/8 bg-[#0a1020] sm:h-[360px]">
-                      <img
-                        src={
-                          index === 0
-                            ? "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80"
-                            : "https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=1600&q=80"
-                        }
-                        alt={project.title}
-                        className="h-full w-full object-cover object-top"
-                      />
-                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,12,22,0.05)_0%,rgba(8,12,22,0.34)_100%)]" />
-                    </div>
-
-                    <div className="bg-[linear-gradient(180deg,#0f1728_0%,#10162c_100%)] p-5 sm:p-5">
-                      <div className="flex items-start justify-between gap-4">
-                        <h3 className="font-display text-[34px] font-semibold text-white sm:text-[40px]">
-                          {project.title}
-                        </h3>
-                        <span
-                          className={`mt-3 h-3 w-3 rounded-full ${
-                            index === 0 ? "bg-[#21b2ff]" : "bg-[#ff3f80]"
-                          }`}
-                        />
-                      </div>
-
-                      <p className="mt-6 text-[18px] leading-10 text-slate-300/82 italic">
-                        "{project.description}"
-                      </p>
-
-                      <div className="mt-8 flex flex-wrap gap-3">
-                        {siteContent.expertise.slice(0, 4).map((tag) => (
-                          <span
-                            key={`${project._id}-${tag}`}
-                            className="rounded-full border border-white/8 bg-white/6 p-3 text-sm font-semibold uppercase tracking-[0.08em] text-slate-100"
-                          >
-                            {tag.replace(".js", "").toUpperCase()}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div className="mt-10">
-                        <a
-                          href={project.url_1}
-                          target="_blank"
-                          rel="noreferrer"
-                          className={
-                            index === 0
-                              ? "inline-flex w-full items-center justify-center rounded-[22px] bg-white px-6 py-5 text-[18px] font-semibold text-surface-950 transition hover:bg-slate-100"
-                              : "inline-flex w-full items-center justify-center rounded-[22px] bg-[linear-gradient(90deg,#2764ff_0%,#21c1e8_100%)] px-6 py-5 text-[18px] font-semibold text-white transition hover:opacity-95"
-                          }
-                        >
-                          OPen
-                        </a>
-                      </div>
-                    </div>
-                  </article>
-                </motion.div>
-              ))
+              <ProjectCoverflow projects={featuredProjects} />
             ) : (
               <div className="rounded-lg border border-white/10 bg-white/5 p-6 text-sm leading-7 text-slate-200/76 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)] lg:col-span-2">
                 {projectsError || "Featured projects are not available right now."}

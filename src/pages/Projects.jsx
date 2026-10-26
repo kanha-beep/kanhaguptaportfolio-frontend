@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
 import { siteContent } from "../content/siteContent";
+import ProjectCoverflow from "../components/ProjectCoverflow";
 
 export default function Projects({ error, setError }) {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export default function Projects({ error, setError }) {
       <motion.div
         initial={{ opacity: 0, x: 200 }}
         animate={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.65, delay: 0, ease: [0.22, 1, 0.36, 1] }}
       >
         <section className="grid gap-8 grid-cols-12 lg:grid-cols-12 my-auto  text-center">
@@ -50,8 +51,21 @@ export default function Projects({ error, setError }) {
         </section>
       </motion.div>
 
+      {!loading && projects.length > 2 ? (
+        <section className="mt-12" aria-labelledby="projects-showcase-title">
+          <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-200">Interactive selection</p>
+              <h1 id="projects-showcase-title" className="mt-2 font-display text-4xl font-semibold text-white sm:text-5xl">Project showcase</h1>
+            </div>
+            <p className="max-w-xs text-sm leading-6 text-slate-300/72">Drag, swipe, use the arrows, or select a project to explore its case study.</p>
+          </div>
+          <ProjectCoverflow projects={projects.slice(0, 6)} compact />
+        </section>
+      ) : null}
+
       <motion.div
-        className="mt-7"
+        className="mt-14"
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
@@ -111,6 +125,8 @@ export default function Projects({ error, setError }) {
                         : "https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=1600&q=80"
                     }
                     alt={project.title}
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,12,22,0.05)_0%,rgba(8,12,22,0.34)_100%)]" />
                 </div>

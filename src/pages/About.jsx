@@ -1,5 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { A11y, Keyboard, Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import { siteContent } from "../content/siteContent";
 
 export default function About() {
@@ -83,6 +88,51 @@ export default function About() {
           ))}
         </section>
       </motion.div>
+      <motion.section
+        className="mt-20"
+        initial={{ opacity: 0, y: 36 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div className="mb-7 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent-300">Education</p>
+            <h2 className="mt-3 font-display text-3xl text-white sm:text-4xl">Academic qualifications</h2>
+          </div>
+          <p className="text-sm text-slate-200/70">Swipe or use the arrows to explore.</p>
+        </div>
+        <Swiper
+          modules={[A11y, Keyboard, Navigation, Pagination]}
+          navigation
+          pagination={{ clickable: true }}
+          keyboard={{ enabled: true }}
+          a11y={{
+            prevSlideMessage: "Show previous qualification",
+            nextSlideMessage: "Show next qualification",
+            paginationBulletMessage: "Show qualification {{index}}",
+          }}
+          spaceBetween={20}
+          slidesPerView={1}
+          breakpoints={{ 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }}
+          className="education-swiper !pb-12 !px-1"
+        >
+          {siteContent.educationCards.map((item) => (
+            <SwiperSlide key={item.title} className="!h-auto">
+              <article className="flex h-full min-h-[290px] flex-col rounded-lg border border-white/10 bg-white/5 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md">
+                <div className="flex items-start justify-between gap-4">
+                  <span className="grid h-12 w-12 place-items-center rounded-xl bg-accent-400/15 text-accent-300"><i className={item.iconClass} aria-hidden="true" /></span>
+                  <span className="rounded-full border border-white/12 px-3 py-1 text-xs font-semibold text-slate-200">{item.badge}</span>
+                </div>
+                <p className="mt-7 text-xs font-semibold uppercase tracking-[0.2em] text-accent-300">{item.year}</p>
+                <h3 className="mt-3 font-display text-2xl leading-tight text-white">{item.title}</h3>
+                <p className="mt-3 text-sm font-medium text-slate-200/90">{item.institution}</p>
+                <p className="mt-4 text-sm leading-7 text-slate-200/70">{item.note}</p>
+              </article>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </motion.section>
 {/* 
       <motion.div
         className="mt-20"

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import api from "../api";
 import { siteContent } from "../content/siteContent";
 
@@ -14,24 +15,15 @@ export default function Contact() {
   const location = useLocation();
   const navigate = useNavigate();
   const projectDetails = location?.state?.project;
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-    projectName: "",
-    projectId: "",
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    defaultValues: { name: "", email: "", message: "", projectName: "", projectId: "" },
   });
   const [contactData, setContactData] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const latestContact = contactData[contactData.length - 1];
 
-  const handleChange = (event) => {
-    setForm({ ...form, [event.target.name]: event.target.value });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const submitContact = async (form) => {
     setSubmitting(true);
     setErrorMessage("");
     try {
@@ -42,13 +34,7 @@ export default function Contact() {
       };
       const res = await api.post("/contacts", formData);
       setContactData((previous) => [...previous, res.data]);
-      setForm({
-        name: "",
-        email: "",
-        message: "",
-        projectName: "",
-        projectId: "",
-      });
+      reset();
     } catch (error) {
       setErrorMessage(
         error.response?.data?.message ||
@@ -75,7 +61,7 @@ export default function Contact() {
           
 
           <div className="rounded-lg border border-white/10 md:mt-10 lg:mt-0 mt-5 bg-white/5 px-6 py-8 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)] sm:px-8">
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit(submitContact)} className="space-y-4" noValidate>
               {errorMessage ? (
                 <div className="rounded-lg border border-rose-200/30 bg-rose-200/10 px-4 py-3 text-sm text-rose-200">
                   {errorMessage}
@@ -94,11 +80,11 @@ export default function Contact() {
                   type="text"
                   name="name"
                   placeholder="Your name"
-                  value={form.name}
-                  onChange={handleChange}
+                  {...register("name", { required: "Please enter your name." })}
                   className="text-black w-full rounded-md border border-white/10 bg-white/6 px-4 py-3 text-sm outline-none transition  focus:border-accent-400/50 focus:bg-white/8"
                   required
                 />
+                {errors.name ? <p className="mt-1 text-xs text-rose-200">{errors.name.message}</p> : null}
               </div>
 
               <div>
@@ -113,11 +99,11 @@ export default function Contact() {
                   type="email"
                   name="email"
                   placeholder="you@example.com"
-                  value={form.email}
-                  onChange={handleChange}
+                  {...register("email", { required: "Please enter your email.", pattern: { value: /^\S+@\S+\.\S+$/, message: "Enter a valid email address." } })}
                   className="w-full rounded-md borde text-black border-white/10 bg-white/6 px-4 py-3 text-sm  outline-none transition focus:border-accent-400/50 focus:bg-white/8"
                   required
                 />
+                {errors.email ? <p className="mt-1 text-xs text-rose-200">{errors.email.message}</p> : null}
               </div>
 
               {!projectDetails ? (
@@ -133,8 +119,7 @@ export default function Contact() {
                     type="text"
                     name="projectName"
                     placeholder="Website redesign, dashboard, blog setup..."
-                    value={form.projectName}
-                    onChange={handleChange}
+                  {...register("projectName")}
                     className="w-full rounded-md border text-black border-white/10 bg-white/6 px-4 py-3 text-sm outline-none transition focus:border-accent-400/50 focus:bg-white/8"
                   />
                 </div>
@@ -151,11 +136,11 @@ export default function Contact() {
                   id="message"
                   name="message"
                   placeholder="Tell me about the goal, audience, timeline, or what you want improved."
-                  value={form.message}
-                  onChange={handleChange}
+                  {...register("message", { required: "Please add a message." })}
                   className="min-h-10 w-full resize-none rounded-md border border-white/10 bg-white/6 px-4 py-3 text-sm text-black outline-none transition focus:border-accent-400/50 focus:bg-white/8"
                   required
                 />
+                {errors.message ? <p className="mt-1 text-xs text-rose-200">{errors.message.message}</p> : null}
               </div>
 
               <button
