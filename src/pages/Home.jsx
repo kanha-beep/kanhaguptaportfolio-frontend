@@ -1,8 +1,14 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { A11y, EffectCards, Keyboard, Navigation, Pagination } from "swiper/modules";
+import {
+  A11y,
+  EffectCards,
+  Keyboard,
+  Navigation,
+  Pagination,
+} from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-cards";
 import "swiper/css/navigation";
@@ -12,7 +18,7 @@ import { siteContent } from "../content/siteContent";
 import ProjectCoverflow from "../components/ProjectCoverflow";
 import SkillsSwiper from "../components/SkillsSwiper";
 import ExperienceCoverflow from "../components/ExperienceCoverflow";
-
+import gsap from "gsap";
 const heroStackIcons = {
   MongoDB: "fa-solid fa-database",
   Express: "fa-solid fa-server",
@@ -68,13 +74,34 @@ export default function Home({ profileImage }) {
   }, []);
 
   useEffect(() => {
-    api.get("/content/education")
+    api
+      .get("/content/education")
       .then((res) => setEducationCards(res?.data ?? []))
-      .catch((error) => console.error("Failed to load education content:", error));
+      .catch((error) =>
+        console.error("Failed to load education content:", error),
+      );
   }, []);
 
   const featuredProjects = projects.slice(0, 3);
-
+  const boxRef = useRef(null);
+  useEffect(() => {
+    // gsap.to(".boxl", {
+    //   x: 700,
+    //   duration: 2,
+    //   rotation:360,
+    //   yoyo:true,
+    //   repeat:Infinity,
+    //   ease: "power.out",
+    // });
+    gsap.fromTo(
+      ".boxl",
+      {
+        opacity: 1,
+        y:0,
+      },
+      { opacity: 0, duration: 2,y:700 , delay:2},
+    );
+  }, []);
   return (
     <main className="relative w-full max-w-7xl p-4 sm:px-6 sm:pt-18 lg:px-8 lg:py-20">
       <div className="w-full flex items-center justify-center">
@@ -126,11 +153,13 @@ export default function Home({ profileImage }) {
           },
         }}
       >
+        <section className="fixed h-[44rem] w-[100%] bg-black boxl z-[9999]"></section>
         {/* hero section */}
-        <section className="grid gap-10 lg:grid-cols-2 grid-cols-1 lg:items-center lg:mt-0 md:grid-cols-2 sm:mt-[4rem] mt-[4rem]">
+
+        <section className="grid gap-10 lg:grid-cols-2 grid-cols-1 lg:items-center lg:mt-0 md:grid-cols-2 sm:mt-[2rem] mt-[1rem]">
           {/* left main */}
-          <div className="space-y-5 pt-2 ml-5 lg:pt-5 md:col-span-1">
-            <span className="inline-flex items-center gap-3 rounded-full border border-[#1848a0] bg-[#091739] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[#4898ff] shadow-[0_0_0_1px_rgba(43,116,255,0.08)]">
+          <div className="space-y-5 pt-2 ml-5 lg:pt-0 md:col-span-1">
+            <span className="inline-flex mt-2 items-center gap-3 rounded-full border border-[#1848a0] bg-[#091739] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[#4898ff] shadow-[0_0_0_1px_rgba(43,116,255,0.08)]">
               <span className="h-[10px] w-[10px] rounded-full bg-[#2f8cff] shadow-[0_0_0_4px_rgba(47,140,255,0.16)]" />
               {siteContent.availability} {siteContent.heroLocation}
             </span>
@@ -152,7 +181,7 @@ export default function Home({ profileImage }) {
                   "{siteContent.heroCopy}"
                 </p>
               </div>
-              <div className="mt-10 flex flex-wrap gap-4">
+              <div className="mt-4 flex flex-wrap gap-4">
                 <Link
                   to="/projects"
                   className="inline-flex items-center justify-center rounded-full border border-white/12 bg-transparent px-8 py-5 text-base font-semibold text-white transition hover:bg-white/6"
@@ -179,7 +208,7 @@ export default function Home({ profileImage }) {
             </div>
           </div>
           {/* right main */}
-          <div className="relative pt-4 lg:pt-0 md:col-span-1">
+          <div className="relative pt-2 lg:pt-0 lg:-mt-[5rem] md:col-span-1">
             <div className="relative min-h-[630px] overflow-hidden rounded-lg border border-white/10 bg-[radial-gradient(circle_at_top,#20215a_0%,#11153c_36%,#090f27_100%)] p-0 shadow-[0_24px_80px_rgba(0,0,0,0.32)] after:absolute after:inset-0 after:bg-[linear-gradient(180deg,rgba(7,17,31,0.06)_0%,rgba(7,17,31,0.8)_100%)] after:content-['']">
               <img
                 src={profileImage || siteContent.profileImage}
@@ -191,9 +220,14 @@ export default function Home({ profileImage }) {
         </section>
       </motion.div>
 
-      <section className="mt-14 overflow-hidden" aria-labelledby="skills-showcase-title">
+      <section
+        className="mt-14 overflow-hidden"
+        aria-labelledby="skills-showcase-title"
+      >
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-            <p className="text-xs font-bold uppercase tracking-[.24em] text-cyan-200">Toolbox</p>
+          <p className="text-xs font-bold uppercase tracking-[.24em] text-cyan-200">
+            Toolbox
+          </p>
         </div>
         <SkillsSwiper skills={siteContent.expertise} />
       </section>
@@ -273,7 +307,11 @@ export default function Home({ profileImage }) {
                   initial={{ opacity: 0, x: 70 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.18 }}
-                  transition={{ duration: 0.4, delay: index * 0.06, ease: "easeOut" }}
+                  transition={{
+                    duration: 0.4,
+                    delay: index * 0.06,
+                    ease: "easeOut",
+                  }}
                 >
                   <div className="flex items-start justify-between gap-5">
                     <div className="flex items-start gap-5 ">
@@ -368,7 +406,8 @@ export default function Home({ profileImage }) {
               <ProjectCoverflow projects={featuredProjects} />
             ) : (
               <div className="rounded-lg border border-white/10 bg-white/5 p-6 text-sm leading-7 text-slate-200/76 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_0_0_1px_rgba(103,240,221,0.22),0_18px_50px_rgba(52,214,197,0.12)] lg:col-span-2">
-                {projectsError || "Featured projects are not available right now."}
+                {projectsError ||
+                  "Featured projects are not available right now."}
               </div>
             )}
           </div>

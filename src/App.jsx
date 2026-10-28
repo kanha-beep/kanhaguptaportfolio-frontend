@@ -11,7 +11,6 @@ import Contact from "./pages/Contact.jsx";
 import About from "./pages/About.jsx";
 import Projects from "./pages/Projects.jsx";
 import Blog from "./pages/Blog.jsx";
-import Animations from "./pages/Animations.jsx";
 import EditBlogs from "./templates/EditBlogs.jsx";
 import SingleBlogs from "./templates/SingleBlogs.jsx";
 import CMSHome from "./cms/CMSHome.jsx";
@@ -141,7 +140,6 @@ function App() {
               />
               <Route path="/contacts" element={<Contact />} />
               <Route path="/blogs" element={<Blog />} />
-              <Route path="/animations" element={<Animations />} />
               <Route path="/blogs/:blogId" element={<SingleBlogs />} />
               <Route
                 element={
