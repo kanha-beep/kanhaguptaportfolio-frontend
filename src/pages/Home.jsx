@@ -208,7 +208,7 @@ export default function Home({ profileImage }) {
         </section>
         <section className="grid gap-10 lg:grid-cols-2 grid-cols-1 lg:items-center lg:mt-0 md:grid-cols-2 sm:mt-[2rem] mt-[1rem]">
           {/* left main */}
-          <div className="space-y-5 pt-2 ml-5 lg:pt-0 md:col-span-1 leftDiv">
+          <div className="space-y-5 pt-2 ml-5 lg:pt-0 md:col-span-1 mt-[1rem] sm:mt-[1rem] leftDiv">
             <span className="inline-flex mt-2 items-center gap-3 rounded-full border border-[#1848a0] bg-[#091739] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[#4898ff] shadow-[0_0_0_1px_rgba(43,116,255,0.08)]">
               <span className="h-[10px] w-[10px] rounded-full bg-[#2f8cff] shadow-[0_0_0_4px_rgba(47,140,255,0.16)]" />
               {siteContent.availability} {siteContent.heroLocation}
