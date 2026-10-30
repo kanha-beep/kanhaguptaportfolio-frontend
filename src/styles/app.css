@@ -74,6 +74,16 @@
     transform: translateX(100%);
   }
 }
+/* .sign {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 2.5s ease-in forwards;
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+} */
 .education-swiper {
   --swiper-theme-color: #67f0dd;
   --swiper-navigation-color: #ffffff;

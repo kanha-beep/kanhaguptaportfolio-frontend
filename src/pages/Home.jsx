@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { getEasingForSegment, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,6 +19,7 @@ import ProjectCoverflow from "../components/ProjectCoverflow";
 import SkillsSwiper from "../components/SkillsSwiper";
 import ExperienceCoverflow from "../components/ExperienceCoverflow";
 import gsap from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 const heroStackIcons = {
   MongoDB: "fa-solid fa-database",
   Express: "fa-solid fa-server",
@@ -83,27 +84,56 @@ export default function Home({ profileImage }) {
   }, []);
 
   const featuredProjects = projects.slice(0, 3);
-  const boxRef = useRef(null);
+  gsap.registerPlugin(ScrollToPlugin);
   useEffect(() => {
-    // gsap.to(".boxl", {
-    //   x: 700,
-    //   duration: 2,
-    //   rotation:360,
-    //   yoyo:true,
-    //   repeat:Infinity,
-    //   ease: "power.out",
-    // });
-    gsap.fromTo(
-      ".boxl",
-      {
-        opacity: 1,
-        y:0,
+    const counter = document.querySelector(".counter");
+    const obj = { value: 0 };
+    gsap.to(obj, {
+      value: 100,
+      duration: 2,
+      onUpdate: () => {
+        console.log(Math.round(obj.value));
+        counter.innerText = `${Math.round(obj.value)}%`;
       },
-      { opacity: 0, duration: 2,y:700 , delay:2},
-    );
+      // value 10  ke baad kya hoga - counter fade ho jaaega
+      onComplete: () => {
+        gsap.to(counter, {
+          opacity: 0,
+          duration: 1,
+          ease: "power3.in",
+          onComplete: () => {
+            boxDown.play();
+            gsap.fromTo(
+              ".myImage",
+              {
+                scale: 0.8,
+              },
+              { scale: 1, duration: 1 },
+            );
+            gsap.fromTo(
+              ".leftDiv",
+              {
+                scale: 0.5,
+              },
+              { scale: 1, duration: 1 },
+            );
+          },
+        });
+      },
+    });
+    const boxDown = gsap.timeline({ paused: true });
+    boxDown.to(".boxl", {
+      y: 700,
+      ease: "expo.out",
+      duration: 1.5,
+      delay: 0,
+      opacity: 0,
+    });
   }, []);
+
   return (
     <main className="relative w-full max-w-7xl p-4 sm:px-6 sm:pt-18 lg:px-8 lg:py-20">
+      {/* <div className="absolute w-[20rem] h-[20rem] bg-yellow-400 boxr z-[10000]"></div> */}
       <div className="w-full flex items-center justify-center">
         <div className=" fixed bottom-1 z-20 flex items-center gap-3 rounded-full border border-[#27406f] px-4 py-3 shadow-[0_20px_60px_rgba(0,0,0,0.42)] backdrop-blur-xl">
           {heroDockItems.map((item, index) =>
@@ -144,21 +174,41 @@ export default function Home({ profileImage }) {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
-        animate={{
-          y: [0, -10, 1],
-          transition: {
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut",
-          },
-        }}
+        // animate={{
+        //   y: [0, -10, 1],
+        //   transition: {
+        //     duration: 3,
+        //     repeat: Infinity,
+        //     ease: "easeInOut",
+        //   },
+        // }}
       >
-        <section className="fixed h-[44rem] w-[100%] bg-black boxl z-[9999]"></section>
+        <section className="absolute h-[44rem] w-[100%] bg-black boxl z-[1000] flex justify-center items-center">
+          <div className="font-bold text-white counter"></div>
+        </section>
+        {/* <svg className="h-[30vh] w-[100vw]" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <motion.path
+            pathLength={1}
+            fill="none"
+            stroke="tomato"
+            strokeWidth={2}
+            d="M 10 90 L 30 65 L 45 75 L 60 35 L 75 50 L 95 10"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 2.5, ease: "easeIn", repeat:Infinity }}
+          />
+        </svg> */}
         {/* hero section */}
-
+        <section>
+          {/* <div className="box h-[7rem] w-[10rem] bg-red-700" id="box1"></div>
+          <div className="box h-[7rem] w-[10rem] bg-red-500" id="box2"></div>
+          <div className="box h-[7rem] w-[10rem] bg-red-400" id="box3"></div>
+          <div className="box h-[7rem] w-[10rem] bg-red-300" id="box4"></div>
+          <div className="box h-[7rem] w-[10rem] bg-red-200" id="box5"></div> */}
+        </section>
         <section className="grid gap-10 lg:grid-cols-2 grid-cols-1 lg:items-center lg:mt-0 md:grid-cols-2 sm:mt-[2rem] mt-[1rem]">
           {/* left main */}
-          <div className="space-y-5 pt-2 ml-5 lg:pt-0 md:col-span-1">
+          <div className="space-y-5 pt-2 ml-5 lg:pt-0 md:col-span-1 leftDiv">
             <span className="inline-flex mt-2 items-center gap-3 rounded-full border border-[#1848a0] bg-[#091739] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[#4898ff] shadow-[0_0_0_1px_rgba(43,116,255,0.08)]">
               <span className="h-[10px] w-[10px] rounded-full bg-[#2f8cff] shadow-[0_0_0_4px_rgba(47,140,255,0.16)]" />
               {siteContent.availability} {siteContent.heroLocation}
@@ -213,7 +263,7 @@ export default function Home({ profileImage }) {
               <img
                 src={profileImage || siteContent.profileImage}
                 alt={siteContent.profileImage}
-                className="absolute inset-0 h-full w-full object-cover object-center"
+                className="absolute inset-0 h-full w-full object-cover object-center myImage"
               />
             </div>
           </div>
