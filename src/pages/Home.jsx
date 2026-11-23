@@ -20,6 +20,7 @@ import SkillsSwiper from "../components/SkillsSwiper";
 import ExperienceCoverflow from "../components/ExperienceCoverflow";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 const heroStackIcons = {
   MongoDB: "fa-solid fa-database",
   Express: "fa-solid fa-server",
@@ -84,7 +85,7 @@ export default function Home({ profileImage }) {
   }, []);
 
   const featuredProjects = projects.slice(0, 3);
-  gsap.registerPlugin(ScrollToPlugin);
+  gsap.registerPlugin(ScrollTrigger);
   useEffect(() => {
     const counter = document.querySelector(".counter");
     const obj = { value: 0 };
@@ -92,7 +93,6 @@ export default function Home({ profileImage }) {
       value: 100,
       duration: 2,
       onUpdate: () => {
-        console.log(Math.round(obj.value));
         counter.innerText = `${Math.round(obj.value)}%`;
       },
       // value 10  ke baad kya hoga - counter fade ho jaaega
@@ -102,7 +102,7 @@ export default function Home({ profileImage }) {
           duration: 1,
           ease: "power3.in",
           onComplete: () => {
-            boxDown.play();
+            // boxDown.play();
             gsap.fromTo(
               ".myImage",
               {
@@ -113,9 +113,10 @@ export default function Home({ profileImage }) {
             gsap.fromTo(
               ".leftDiv",
               {
-                scale: 0.5,
+                opacity: 0,
+                y: 200,
               },
-              { scale: 1, duration: 1 },
+              { opacity: 1, y: 0, duration: 1 },
             );
           },
         });
@@ -128,6 +129,20 @@ export default function Home({ profileImage }) {
       duration: 1.5,
       delay: 0,
       opacity: 0,
+    });
+    gsap.set(".myImage", { scale: 1.4, clipPath: "inset(33% 28% 28% 33%)" });
+    gsap.to(".myImage", {
+      scale: 1,
+      ease: "power3.in",
+      duration:1.5,
+      clipPath: "inset(0% 0% 0% 0%)",
+      scrollTrigger: {
+        trigger: ".hero-section",
+        start: "top top",
+        end:"bottom bottom",
+        scrub: true,
+        // pin:true
+      },
     });
   }, []);
 
@@ -169,11 +184,11 @@ export default function Home({ profileImage }) {
           )}
         </div>
       </div>
-      <motion.div
-        initial={{ opacity: 0, x: -200 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: false, amount: 0.2 }}
-        transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+      <div
+        // initial={{ opacity: 0, x: -200 }}
+        // whileInView={{ opacity: 1, x: 0 }}
+        // viewport={{ once: true, amount: 0.2 }}
+        // transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
         // animate={{
         //   y: [0, -10, 1],
         //   transition: {
@@ -183,8 +198,19 @@ export default function Home({ profileImage }) {
         //   },
         // }}
       >
-        <section className="absolute h-[44rem] w-[100%] bg-black boxl z-[1000] flex justify-center items-center">
-          <div className="font-bold text-white counter"></div>
+        <section className="min-h-screen"></section>
+        <section className="min-h-screen w-full relative hero-section bg-black p-3 flex justify-center items-center">
+          <div className="relative h-[60rem] imageDiv w-[90%] bg-black border boxl z-[1000] flex justify-center items-center">
+            <img
+              src={profileImage || siteContent.profileImage}
+              alt={siteContent.profileImage}
+              className="absolute inset-0 h-full w-full object-cover object-center myImage"
+            />
+            {/* <div className="font-bold text-white counter"></div> */}
+            {/* <div className="items h-[10rem] w-[10rem] bg-red-400 absolute top-0 left-[3rem]"></div> */}
+            {/* <div className="items h-[10rem] w-[10rem] bg-red-300 absolute top-[15rem] left-[3rem]"></div> */}
+            {/* <div className="items h-[10rem] w-[10rem] bg-red-200 absolute top-[30rem] left-[3rem]"></div> */}
+          </div>
         </section>
         {/* <svg className="h-[30vh] w-[100vw]" viewBox="0 0 100 100" preserveAspectRatio="none">
           <motion.path
@@ -268,7 +294,7 @@ export default function Home({ profileImage }) {
             </div>
           </div>
         </section>
-      </motion.div>
+      </div>
 
       <section
         className="mt-14 overflow-hidden"
@@ -286,15 +312,12 @@ export default function Home({ profileImage }) {
         className="mt-15"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 1, delay: 0, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* Professional Experience second section */}
         <section>
           <div className="text-center">
-            {/* <span className="inline-flex items-center gap-2 rounded-full border border-[#1848a0] bg-[#091739] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#4898ff]">
-              Work History
-            </span> */}
             <h2 className="mt-8 font-display text-[58px] font-extrabold leading-[0.92] text-white sm:text-[74px] lg:text-[94px]">
               Professional
               <span className="block bg-[linear-gradient(90deg,#31b8ff_0%,#59d7ff_34%,#7998ff_72%,#b55cff_100%)] bg-clip-text text-transparent">
@@ -319,7 +342,7 @@ export default function Home({ profileImage }) {
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.4 }}
+            viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.65, delay: 0, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="text-center text-[3.4rem]">
